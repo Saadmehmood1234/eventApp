@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
+import Link from 'next/link';
+
 interface Event {
+  id:string;
   title: string;
   startDate: string;
   endDate: string;
@@ -14,36 +17,49 @@ interface EventsCardProps {
 
 const events: Event[] = [
   {
+    id: '1',
     title: "Tech Conference 2024",
     startDate: "2024-09-01",
     endDate: "2024-09-03",
     image: "eventa1.jpg",
   },
   {
+    id: '2',
     title: "Art Workshop",
     startDate: "2024-09-15",
     endDate: "2024-09-16",
     image: "eventa2.jpg",
   },
   {
+    id: '3',
     title: "Music Festival",
     startDate: "2024-10-10",
     endDate: "2024-10-12",
     image: "eventa2.jpg",
   },
   {
+    id: '4',
     title: "Business Summit",
     startDate: "2024-11-05",
     endDate: "2024-11-06",
     image: "eventa1.jpg",
   },
   {
+    id: '5',
     title: "Charity Gala",
     startDate: "2024-12-01",
     endDate: "2024-12-02",
     image: "eventa1.jpg",
   },
   {
+    id: '6',
+    title: "Tech Talk",
+    startDate: "2024-08-30",
+    endDate: "2024-08-30",
+    image: "eventa2.jpg",
+  },
+  {
+    id: '6',
     title: "Tech Talk",
     startDate: "2024-08-30",
     endDate: "2024-08-30",
@@ -52,6 +68,7 @@ const events: Event[] = [
 ];
 
 const EventsCard: React.FC<EventsCardProps> = ({ searchQuery }) => {
+
   const [showAll, setShowAll] = useState(false);
 
   const filteredEvents = events.filter((event) =>
@@ -61,42 +78,43 @@ const EventsCard: React.FC<EventsCardProps> = ({ searchQuery }) => {
   const visibleEvents = showAll ? filteredEvents : filteredEvents.slice(0, 6);
 
   return (
-    <div className="min-h-screen  p-6">
+    <div className="min-h-screen p-6">
       <div className="mb-8 text-3xl font-semibold text-orange-600">
         <h1>Upcoming Events</h1>
       </div>
       {filteredEvents.length > 0 ? (
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {visibleEvents.map((event, index) => (
-              <div
-                key={index}
-                className="max-w-sm rounded overflow-hidden shadow-lg bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100"
-              >
-                <img
-                  className="w-full h-48 object-cover"
-                  src={event.image}
-                  alt={event.title}
-                />
-                <div className="px-6 py-4">
-                  <div className="font-bold text-xl mb-2 text-gray-900">
-                    {event.title}
+            {visibleEvents.map((event) => (
+              <Link key={event.id} href={`/user/events/${event.id}`}>
+                <div
+                  className="max-w-sm rounded overflow-hidden shadow-lg bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 cursor-pointer"
+                >
+                  <img
+                    className="w-full h-48 object-cover"
+                    src={event.image}
+                    alt={event.title}
+                  />
+                  <div className="px-6 py-4">
+                    <div className="font-bold text-xl mb-2 text-gray-900">
+                      {event.title}
+                    </div>
+                    <p className="text-gray-700 text-base">
+                      <span className="font-semibold">Start Date:</span>{" "}
+                      {event.startDate}
+                    </p>
+                    <p className="text-gray-700 text-base">
+                      <span className="font-semibold">End Date:</span>{" "}
+                      {event.endDate}
+                    </p>
                   </div>
-                  <p className="text-gray-700 text-base">
-                    <span className="font-semibold">Start Date:</span>{" "}
-                    {event.startDate}
-                  </p>
-                  <p className="text-gray-700 text-base">
-                    <span className="font-semibold">End Date:</span>{" "}
-                    {event.endDate}
-                  </p>
+                  <div className="px-6 pb-4">
+                    <button className="bg-green-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-700 transition duration-300 ease-in-out">
+                      Join Event
+                    </button>
+                  </div>
                 </div>
-                <div className="px-6 pb-4">
-                  <button className="bg-green-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-700 transition duration-300 ease-in-out">
-                    Join Event
-                  </button>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
           {filteredEvents.length > 6 && (
@@ -119,4 +137,4 @@ const EventsCard: React.FC<EventsCardProps> = ({ searchQuery }) => {
   );
 };
 
-export default EventsCard;
+export default EventsCard

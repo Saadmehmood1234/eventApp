@@ -1,14 +1,17 @@
-// /src/models/Event.ts
 import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface IEvent extends Document {
   title: string;
   description: string;
-  date: Date;
+  startDate: Date;
+  endDate?: Date;
   location: string;
-  organizer: mongoose.Schema.Types.ObjectId;
-  attendees: mongoose.Schema.Types.ObjectId[];
+  organiser: string; 
+  attendees?: mongoose.Schema.Types.ObjectId[];
+  imageUrl?: string;
+  tags?: string[];
   createdAt: Date;
+  updatedAt: Date;
 }
 
 const eventSchema: Schema<IEvent> = new Schema({
@@ -21,18 +24,21 @@ const eventSchema: Schema<IEvent> = new Schema({
     type: String,
     required: true,
   },
-  date: {
+  startDate: {
     type: Date,
     required: true,
+  },
+  endDate: {
+    type: Date,
+    required: false,
   },
   location: {
     type: String,
     required: true,
     trim: true,
   },
-  organizer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+  organiser: {
+    type: String,
     required: true,
   },
   attendees: [
@@ -41,10 +47,27 @@ const eventSchema: Schema<IEvent> = new Schema({
       ref: 'User',
     },
   ],
+  imageUrl: {
+    type: String,
+    default: '',
+  },
+  tags: {
+    type: [String],
+    default: [],
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+eventSchema.pre<IEvent>('save', function (next) {
+  this.updatedAt = new Date();
+  next();
 });
 
 const Event: Model<IEvent> = mongoose.models.Event || mongoose.model<IEvent>('Event', eventSchema);
