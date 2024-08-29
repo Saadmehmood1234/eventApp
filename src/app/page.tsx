@@ -3,15 +3,15 @@ import React, { useState } from "react";
 import { FaFacebookF, FaTwitter, FaInstagram, FaSearch } from "react-icons/fa";
 import Link from "next/link";
 import EventsCard from "@/components/EventCard";
-
+ 
 const Home: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const userProfilePicture = "user.jpg";
-
+ const [isLoggedIn,setIsLoggedIn]=useState(false)
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 flex flex-col items-center text-gray-800">
@@ -37,6 +37,9 @@ const Home: React.FC = () => {
               >
                 Event History
               </Link>
+              <button className="hover:underline text-gray-700">
+                Logout
+              </button>
             </>
           ) : (
             <Link href="/login" className="hover:underline text-gray-700">

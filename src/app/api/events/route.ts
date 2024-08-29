@@ -4,11 +4,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 interface EventBody {
   title: string;
+  members:string;
   description: string;
   startDate: string;
   endDate?: string;
   location: string;
   organiser: string; 
+  sponsers:string;
   imageUrl?: string;
   tags?: string[];
 }
@@ -23,27 +25,31 @@ export const POST = async (req: NextRequest) => {
 
     const {
       title,
+      members,
       description,
       startDate,
       endDate,
       location,
       imageUrl,
       tags,
-      organiser
+      organiser,
+      sponsers
     } = body;
 
 
-    if (!title || !description || !startDate || !endDate ||  !location || !organiser) {
+    if (!title || !description || !startDate || !endDate ||  !location || !organiser || !members) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
     const newEvent = new Event({
       title,
+      members,
       description,
       startDate,
       endDate,
       location,
       organiser,
+      sponsers,
       imageUrl,
       tags,
     });
@@ -53,11 +59,13 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json({
       _id: newEvent._id,
       title: newEvent.title,
+      members:newEvent.members,
       description: newEvent.description,
       startDate: newEvent.startDate,
       endDate: newEvent.endDate,
       location: newEvent.location,
       organiser: newEvent.organiser,
+      sponsers:newEvent.sponsers,
       imageUrl: newEvent.imageUrl,
       tags: newEvent.tags,
     }, { status: 201 });

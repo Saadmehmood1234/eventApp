@@ -2,11 +2,13 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface IEvent extends Document {
   title: string;
+  members:number;
   description: string;
   startDate: Date;
   endDate?: Date;
   location: string;
   organiser: string; 
+  sponsers:string;
   attendees?: mongoose.Schema.Types.ObjectId[];
   imageUrl?: string;
   tags?: string[];
@@ -19,6 +21,10 @@ const eventSchema: Schema<IEvent> = new Schema({
     type: String,
     required: true,
     trim: true,
+  },
+  members:{
+   type:Number,
+   required:true,
   },
   description: {
     type: String,
@@ -40,6 +46,9 @@ const eventSchema: Schema<IEvent> = new Schema({
   organiser: {
     type: String,
     required: true,
+  },
+  sponsers:{
+    type: String,
   },
   attendees: [
     {

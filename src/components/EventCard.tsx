@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-
 import Link from 'next/link';
-
 interface Event {
   id:string;
   title: string;
@@ -68,7 +66,6 @@ const events: Event[] = [
 ];
 
 const EventsCard: React.FC<EventsCardProps> = ({ searchQuery }) => {
-
   const [showAll, setShowAll] = useState(false);
 
   const filteredEvents = events.filter((event) =>
@@ -86,6 +83,7 @@ const EventsCard: React.FC<EventsCardProps> = ({ searchQuery }) => {
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {visibleEvents.map((event) => (
+              
               <Link key={event.id} href={`/user/events/${event.id}`}>
                 <div
                   className="max-w-sm rounded overflow-hidden shadow-lg bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 cursor-pointer"
