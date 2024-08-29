@@ -13,6 +13,7 @@ interface EventBody {
   sponsers:string;
   imageUrl?: string;
   tags?: string[];
+  time:string;
 }
 
 
@@ -33,11 +34,12 @@ export const POST = async (req: NextRequest) => {
       imageUrl,
       tags,
       organiser,
-      sponsers
+      sponsers,
+      time
     } = body;
 
 
-    if (!title || !description || !startDate || !endDate ||  !location || !organiser || !members) {
+    if (!title || !description || !startDate || !endDate ||  !location || !organiser || !members || !time) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
@@ -52,8 +54,9 @@ export const POST = async (req: NextRequest) => {
       sponsers,
       imageUrl,
       tags,
+      time,
     });
-
+console.log("ssad")
     await newEvent.save();
 
     return NextResponse.json({
@@ -68,6 +71,7 @@ export const POST = async (req: NextRequest) => {
       sponsers:newEvent.sponsers,
       imageUrl: newEvent.imageUrl,
       tags: newEvent.tags,
+      time: newEvent.time,
     }, { status: 201 });
   } catch (error: any) {
     console.error("Error in event creation:", error.message);

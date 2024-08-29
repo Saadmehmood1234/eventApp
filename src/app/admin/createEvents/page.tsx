@@ -14,7 +14,7 @@
 //     location: '',
 //     imageUrl: '',
 //     tags: '',
-//     organiser: '', 
+//     organiser: '',
 //   });
 
 //   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -172,11 +172,10 @@
 
 // export default CreateEvent;
 
-
 "use client";
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import axios from 'axios';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const CreateEvent = () => {
   const router = useRouter();
@@ -192,6 +191,7 @@ const CreateEvent = () => {
     tags: "",
     organiser: "",
     sponsers: "",
+    time: "12:00",
   });
 
   const handleChange = (
@@ -221,12 +221,20 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-4xl bg-gradient-to-r from-teal-200 to-blue-200">
-      <h1 className="text-4xl font-extrabold text-white mb-8">Create New Event</h1>
-      <form onSubmit={handleSubmit} className="space-y-6  p-8 rounded-lg shadow-lg">
+    <div className="container mx-auto p-6 max-w-4xl bg-gradient-to-b from-[#FEF6EC] to-[#FBEAD1]">
+      <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-extrabold text-gray-800 text-center mb-2">
+        Create New Event
+      </h1>
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-6 bg-white p-8 rounded-lg shadow-lg"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="col-span-1">
-            <label htmlFor="title" className="block text-sm font-semibold text-gray-700 mb-2">
+          <div className="col-span-1 max-lg:col-span-2">
+            <label
+              htmlFor="title"
+              className="block text-sm font-semibold text-gray-700 mb-2"
+            >
               Title
             </label>
             <input
@@ -256,7 +264,7 @@ const CreateEvent = () => {
               required
             />
           </div>
-          <div className="col-span-2">
+          <div className="col-span-1 max-lg:col-span-2">
             <label
               htmlFor="location"
               className="block text-sm font-semibold text-gray-700 mb-2"
@@ -273,7 +281,25 @@ const CreateEvent = () => {
               required
             />
           </div>
+          <div className="col-span-1 max-lg:col-span-2">
+            <label
+              htmlFor="time"
+              className="block text-sm font-semibold text-gray-700 mb-2"
+            >
+              Time
+            </label>
+            <input
+              type="time"
+              id="time"
+              name="time"
+              value={formData.time}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 bg-gray-200/60"
+              required
+            />
+          </div>
         </div>
+
         <div>
           <label
             htmlFor="description"
@@ -326,6 +352,7 @@ const CreateEvent = () => {
             />
           </div>
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label

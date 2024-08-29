@@ -2,13 +2,14 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface IEvent extends Document {
   title: string;
-  members:number;
+  members: number;
   description: string;
   startDate: Date;
   endDate?: Date;
+  time?: string; // Changed to string
   location: string;
-  organiser: string; 
-  sponsers:string;
+  organiser: string;
+  sponsers: string;
   attendees?: mongoose.Schema.Types.ObjectId[];
   imageUrl?: string;
   tags?: string[];
@@ -22,9 +23,9 @@ const eventSchema: Schema<IEvent> = new Schema({
     required: true,
     trim: true,
   },
-  members:{
-   type:Number,
-   required:true,
+  members: {
+    type: Number,
+    required: true,
   },
   description: {
     type: String,
@@ -38,6 +39,10 @@ const eventSchema: Schema<IEvent> = new Schema({
     type: Date,
     required: false,
   },
+  time: {
+    type: String, // Changed to string
+    required: false,
+  },
   location: {
     type: String,
     required: true,
@@ -47,7 +52,7 @@ const eventSchema: Schema<IEvent> = new Schema({
     type: String,
     required: true,
   },
-  sponsers:{
+  sponsers: {
     type: String,
   },
   attendees: [
