@@ -15,7 +15,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 flex flex-col items-center text-gray-800">
-      <header className="w-full flex justify-between items-center p-6 bg-white bg-opacity-70 backdrop-filter backdrop-blur-lg rounded-lg shadow-lg">
+      <header className="w-full flex justify-between items-center p-6 bg-white bg-opacity-70 backdrop-filter backdrop-blur-lg rounded-b-lg shadow-lg">
         <div className="text-2xl font-bold text-gray-900">Eventify</div>
         <nav className="space-x-8 flex max-[410px]:hidden items-center">
           <Link href="/events" className="hover:underline text-gray-700">

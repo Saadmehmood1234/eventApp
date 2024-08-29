@@ -41,7 +41,7 @@ export default function AdminSidebar() {
     <>
       <div onClick={() => setShowSidebar(!showSidebar)}>
         {!showSidebar && (
-          <RiMenu4Fill className="text-3xl cursor-pointer md:hidden absolute top-4 left-4 z-[100]" />
+          <RiMenu4Fill className="text-3xl cursor-pointer md:hidden absolute top-6 left-3 z-[100]" />
         )}
       </div>
 
@@ -114,6 +114,17 @@ export default function AdminSidebar() {
               >
                 <HiClipboardList />
                 <p className="text">Event History</p>
+              </div>
+            </Link>
+
+            <Link href={"/admin/department/course"}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/admin/department/course" ? "bg-[#3d24fc2a]": ""
+                }`}
+              >
+                <HiClipboardList />
+                <p className="text">Create Event</p>
               </div>
             </Link>
 

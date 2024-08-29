@@ -127,11 +127,11 @@ export default function EventRegistrationForm() {
               degree of risk. I release WebianPro LLC from any liability for
               injury, loss, or damage to personal property.
             </p>
-            <div className="flex items-center mt-4 gap-2">
+            <div className="flex items-center mt-4 gap-1">
               <input
                 id="agreement"
                 type="checkbox"
-                className="form-checkbox text-[#F59E0B] h-6 w-6"
+                className="form-checkbox text-[#F59E0B] h-6 w-6 rounded-md"
               />
               <label htmlFor="agreement" className="ml-2 text-lg text-gray-700">
                 I agree to the terms and conditions
