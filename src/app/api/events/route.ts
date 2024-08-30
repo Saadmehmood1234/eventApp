@@ -4,19 +4,17 @@ import { NextRequest, NextResponse } from "next/server";
 
 interface EventBody {
   title: string;
-  members:string;
+  members: number;
   description: string;
   startDate: string;
   endDate?: string;
   location: string;
-  organiser: string; 
-  sponsers:string;
+  organiser: string;
+  sponsers: string;
   imageUrl?: string;
   tags?: string[];
-  time:string;
+  time: string;
 }
-
-
 
 export const POST = async (req: NextRequest) => {
   await connectToMongoDb();
@@ -31,16 +29,27 @@ export const POST = async (req: NextRequest) => {
       startDate,
       endDate,
       location,
-      imageUrl,
-      tags,
       organiser,
       sponsers,
-      time
+      imageUrl,
+      tags,
+      time,
     } = body;
 
-
-    if (!title || !description || !startDate || !endDate ||  !location || !organiser || !members || !time) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    if (
+      !title ||
+      !description ||
+      !startDate ||
+      !endDate ||
+      !location ||
+      !organiser ||
+      !members ||
+      !time
+    ) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
     }
 
     const newEvent = new Event({
@@ -56,25 +65,31 @@ export const POST = async (req: NextRequest) => {
       tags,
       time,
     });
-console.log("ssad")
+    console.log("ssad");
     await newEvent.save();
 
-    return NextResponse.json({
-      _id: newEvent._id,
-      title: newEvent.title,
-      members:newEvent.members,
-      description: newEvent.description,
-      startDate: newEvent.startDate,
-      endDate: newEvent.endDate,
-      location: newEvent.location,
-      organiser: newEvent.organiser,
-      sponsers:newEvent.sponsers,
-      imageUrl: newEvent.imageUrl,
-      tags: newEvent.tags,
-      time: newEvent.time,
-    }, { status: 201 });
+    return NextResponse.json(
+      {
+        _id: newEvent._id,
+        title: newEvent.title,
+        members: newEvent.members,
+        description: newEvent.description,
+        startDate: newEvent.startDate,
+        endDate: newEvent.endDate,
+        location: newEvent.location,
+        organiser: newEvent.organiser,
+        sponsers: newEvent.sponsers,
+        imageUrl: newEvent.imageUrl,
+        tags: newEvent.tags,
+        time: newEvent.time,
+      },
+      { status: 201 }
+    );
   } catch (error: any) {
     console.error("Error in event creation:", error.message);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 };

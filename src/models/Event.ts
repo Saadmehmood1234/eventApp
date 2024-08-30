@@ -6,7 +6,7 @@ export interface IEvent extends Document {
   description: string;
   startDate: Date;
   endDate?: Date;
-  time?: string; // Changed to string
+  time?: string; // 
   location: string;
   organiser: string;
   sponsers: string;

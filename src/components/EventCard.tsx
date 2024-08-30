@@ -136,3 +136,12 @@ const EventsCard: React.FC<EventsCardProps> = ({ searchQuery }) => {
 };
 
 export default EventsCard
+
+
+
+
+
+
+
+
+
