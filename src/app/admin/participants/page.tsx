@@ -11,6 +11,7 @@ const ParticipantPage = () => {
         { name: "John Doe", role: "Participant" },
         { name: "Jane Smith", role: "Mentor" },
       ],
+      total:"30",
       icon: <AiOutlineTrophy className="text-4xl text-yellow-500" />,
     },
     {
@@ -19,6 +20,7 @@ const ParticipantPage = () => {
         { name: "Alice Brown", role: "Participant" },
         { name: "Bob White", role: "Judge" },
       ],
+      total:"40",
       icon: <FaUserGraduate className="text-4xl text-blue-500" />,
     },
     {
@@ -27,6 +29,7 @@ const ParticipantPage = () => {
         { name: "Charlie Black", role: "Participant" },
         { name: "Dave Green", role: "Speaker" },
       ],
+      total:"50",
       icon: <IoIosPeople className="text-4xl text-green-500" />,
     },
   ];
@@ -40,7 +43,7 @@ const ParticipantPage = () => {
           Participants by Event
         </h1>
         <div className="text-xl font-semibold text-gray-600">
-          Total Participants: <span className="text-purple-600">6</span>
+          Total Participants: <span className="text-purple-600">160</span>
         </div>
         {/* <Link href={"admin/createEvents"}>
           <button className="bg-purple-300 hover:bg-purple-400 rounded-full px-4 py-2">
@@ -56,9 +59,14 @@ const ParticipantPage = () => {
             key={index}
             className="mb-8 p-6 bg-white rounded-lg shadow-lg"
           >
+            <div className="flex justify-between">
             <div className="flex items-center mb-4">
               <div className="mr-4">{event.icon}</div>
               <h2 className="text-3xl font-semibold text-gray-700">{event.name}</h2>
+            </div>
+            <div className="font-semibold">
+            Participants: <span className="text-purple-600">{event.total}</span>
+            </div>
             </div>
             <ul>
               {event.participants.map((participant, idx) => (
