@@ -6,7 +6,7 @@ export interface IEvent extends Document {
   description: string;
   startDate: Date;
   endDate?: Date;
-  time?: string; // 
+  // time?: string; // 
   location: string;
   organiser: string;
   sponsers: string;
@@ -39,10 +39,10 @@ const eventSchema: Schema<IEvent> = new Schema({
     type: Date,
     required: false,
   },
-  time: {
-    type: String, // Changed to string
-    required: false,
-  },
+  // time: {
+  //   type: String, // Changed to string
+  //   required: false,
+  // },
   location: {
     type: String,
     required: true,

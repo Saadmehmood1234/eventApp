@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { FaFacebookF, FaTwitter, FaInstagram, FaSearch } from "react-icons/fa";
 import Link from "next/link";
 import EventsCard from "@/components/EventCard";
-
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const userProfilePicture = "user.jpg";
@@ -14,6 +15,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 flex flex-col items-center text-gray-800">
+      <Header/>
       <main className="flex-grow flex flex-col justify-center items-center text-center mt-12 px-4">
         <h1 className="text-5xl font-extrabold mb-8 text-gray-900">
           Discover and Participate in Exciting Events
@@ -40,6 +42,7 @@ const Home: React.FC = () => {
           <EventsCard searchQuery={searchQuery} />
         </div>
       </main>
+      <Footer/>
     </div>
   );
 };

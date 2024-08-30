@@ -13,7 +13,7 @@ interface EventBody {
   sponsers: string;
   imageUrl?: string;
   tags?: string[];
-  time: string;
+  // time: string;
 }
 
 export const POST = async (req: NextRequest) => {
@@ -33,7 +33,7 @@ export const POST = async (req: NextRequest) => {
       sponsers,
       imageUrl,
       tags,
-      time,
+      // time,
     } = body;
 
     if (
@@ -43,8 +43,8 @@ export const POST = async (req: NextRequest) => {
       !endDate ||
       !location ||
       !organiser ||
-      !members ||
-      !time
+      !members
+      // !time
     ) {
       return NextResponse.json(
         { error: "Missing required fields" },
@@ -63,7 +63,7 @@ export const POST = async (req: NextRequest) => {
       sponsers,
       imageUrl,
       tags,
-      time,
+      // time,
     });
     console.log("ssad");
     await newEvent.save();
@@ -81,7 +81,7 @@ export const POST = async (req: NextRequest) => {
         sponsers: newEvent.sponsers,
         imageUrl: newEvent.imageUrl,
         tags: newEvent.tags,
-        time: newEvent.time,
+        // time: newEvent.time,
       },
       { status: 201 }
     );
