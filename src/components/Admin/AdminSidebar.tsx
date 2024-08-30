@@ -2,6 +2,9 @@
 import { Button, Modal } from "flowbite-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { RiCalendarScheduleFill } from "react-icons/ri";
+import { FaCalendarPlus } from "react-icons/fa6";
+
 import {
   HiChartPie,
   HiUser,
@@ -95,24 +98,24 @@ export default function AdminSidebar() {
               </div>
             </Link>
 
-            <Link href={"/admin/department/course"}>
+            <Link href={"/admin/participants"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/admin/department/course" ? "bg-[#3d24fc2a]": ""
+                  pathname === "/admin/participants" ? "bg-[#3d24fc2a]": ""
                 }`}
               >
                 <HiUserGroup />
-                <p className="text">Particpants</p>
+                <p className="text">Participants</p>
               </div>
             </Link>
 
-            <Link href={"/admin/department/course"}>
+            <Link href={"/admin/history"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/admin/department/course" ? "bg-[#3d24fc2a]": ""
+                  pathname === "/admin/history" ? "bg-[#3d24fc2a]": ""
                 }`}
               >
-                <HiClipboardList />
+                <RiCalendarScheduleFill />
                 <p className="text">Event History</p>
               </div>
             </Link>
@@ -123,7 +126,7 @@ export default function AdminSidebar() {
                   pathname === "/admin/department/course" ? "bg-[#3d24fc2a]": ""
                 }`}
               >
-                <HiClipboardList />
+                <FaCalendarPlus />
                 <p className="text">Create Event</p>
               </div>
             </Link>
