@@ -38,7 +38,7 @@ const useSignup = () => {
 
       if (data.error) throw new Error(data.error);
     
-      localStorage.setItem("chatUser", JSON.stringify(data));
+      localStorage.setItem("eventUser", JSON.stringify(data));
       return data;
     } catch (error) {
       if (error instanceof Error) {

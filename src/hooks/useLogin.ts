@@ -38,7 +38,7 @@ const useLogin = () => {
         throw new Error(data.error);
       }
 
-      localStorage.setItem("chatUser", JSON.stringify(data.user));
+      localStorage.setItem("eventUser", JSON.stringify(data.user));
       console.log(data.token);
       return data;
     } catch (error) {
