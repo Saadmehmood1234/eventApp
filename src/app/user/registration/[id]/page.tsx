@@ -264,10 +264,11 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
   }, [id]);
 
   if (loading) {
+   
     return (
-      <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-[#FEF6EC] to-[#FBEAD1]">
-        <div className="text-xl font-semibold">Loading...</div>
-      </div>
+      <div className="flex justify-center items-center min-h-[300px]">
+      <div className="w-16 h-16 border-4 border-t-4 border-purple-600 border-solid rounded-full animate-spin"></div>
+    </div>
     );
   }
 

@@ -439,3 +439,157 @@ const employe = () => {
 };
 
 export default employe;
+
+
+
+
+
+
+
+// "use client";
+// import { useEffect, useState } from "react";
+// import { IoMdEye } from "react-icons/io";
+// import { AiOutlineEdit } from "react-icons/ai";
+// import Link from "next/link";
+// import DisplayTable from "../../../components/Admin/DisplayTable";
+// import axios from 'axios';
+
+// export interface RequestEmployeeType {
+//   id: number;
+//   image: string;
+//   name: string;
+//   email: string;
+//   city: string;
+//   role: string;
+//   status: string;
+//   action: JSX.Element[];
+// }
+
+// export interface TableColumnType {
+//   Header: string;
+//   accessor: string;
+//   className: string;
+//   Cell?: any;
+// }
+
+// const columns: TableColumnType[] = [
+//   {
+//     Header: "ID",
+//     accessor: "id",
+//     className: "w-1/12 sm:w-1/12 md:w-1/12 lg:w-1/12",
+//   },
+//   {
+//     Header: "Image",
+//     accessor: "image",
+//     className: "w-2/12 sm:w-2/12 md:w-2/12 lg:w-2/12",
+//     Cell: ({ cell: { value } }: { cell: { value: any } }) => (
+//       <img
+//         src={value}
+//         alt="Employee"
+//         className="w-12 h-12 object-cover rounded-full"
+//       />
+//     ),
+//   },
+//   {
+//     Header: "Name",
+//     accessor: "name",
+//     className: "w-2/12 sm:w-3/12 md:w-3/12 lg:w-3/12",
+//   },
+//   {
+//     Header: "Email",
+//     accessor: "email",
+//     className: "w-2/12 sm:w-2/12 md:w-2/12 lg:w-2/12",
+//   },
+//   {
+//     Header: "City",
+//     accessor: "city",
+//     className: "w-2/12 sm:w-2/12 md:w-2/12 lg:w-2/12",
+//   },
+//   {
+//     Header: "Role",
+//     accessor: "role",
+//     className: "w-2/12 sm:w-2/12 md:w-2/12 lg:w-2/12",
+//   },
+//   {
+//     Header: "Status",
+//     accessor: "status",
+//     className: "w-2/12 sm:w-2/12 md:w-2/12 lg:w-2/12",
+//     Cell: ({ cell: { value } }: { cell: { value: any } }) => {
+//       const status = value?.toLowerCase() || "inactive"; // Default to "inactive" if value is undefined
+//       return (
+//         <span
+//           className={`font-semibold rounded-full pt-1 pb-1 pl-3 pr-3 capitalize ${
+//             status === "active" ? "text-[#1a513f] bg-[#D1FAE5]" : "text-[#6c2121] bg-[#F1C9C9]"
+//           }`}
+//         >
+//           {value}
+//         </span>
+//       );
+//     },
+//   },
+//   {
+//     Header: "Action",
+//     accessor: "action",
+//     className: "w-1/12 sm:w-1/12 md:w-1/12 lg:w-1/12",
+//     Cell: ({ cell: { value } }: { cell: { value: any } }) => {
+//       return (
+//         <div className="flex">
+//           {value.map((icon: any, index: number) => {
+//             return (
+//               <div
+//                 key={index}
+//                 className="border-2 border-gray-300 rounded-[10px] p-1 mx-0.5 bg-white cursor-pointer"
+//               >
+//                 {icon}
+//               </div>
+//             );
+//           })}
+//         </div>
+//       );
+//     },
+//   },
+// ];
+
+// const Employe = () => {
+//   const [employees, setEmployees] = useState<RequestEmployeeType[]>([]);
+
+//   useEffect(() => {
+//     // Fetch data from API
+//     axios.get('http://localhost:3000/api/users')
+//       .then(response => {
+//         const fetchedData = response.data.map((employee: any) => ({
+//           id: employee.id,
+//           image: employee.image,
+//           name: employee.name,
+//           email: employee.email,
+//           city: employee.city,
+//           role: employee.role,
+//           status: employee.status,
+//           action: [
+//             <Link href={`/edit/${employee.id}`} key={`edit-${employee.id}`}>
+//               <AiOutlineEdit />
+//             </Link>,
+//             <Link href={`/employee/${employee.id}`} key={`view-${employee.id}`}>
+//               <IoMdEye />
+//             </Link>,
+//           ],
+//         }));
+//         setEmployees(fetchedData);
+//       })
+//       .catch(error => {
+//         console.error('Error fetching employees:', error);
+//       });
+//   }, []);
+
+//   return (
+//     <>
+//       <DisplayTable
+//         columns={columns}
+//         requests={employees}
+//         searchableFields={["name", "email", "city", "role", "status"]}
+//       />
+//     </>
+//   );
+// };
+
+// export default Employe;

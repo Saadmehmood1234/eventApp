@@ -13,12 +13,12 @@ const Header = () => {
         <Link href="/admin" className="hover:underline text-gray-700">
           Admin
         </Link>
-
+{/* 
         {isLoggedIn ? (
-          <>
-            <Link href="/profile">
+          <> */}
+            <Link href="/user/profile">
               <img
-                src=""
+                src="https://i.pravatar.cc/150?img=3"
                 alt="User Profile"
                 className="w-8 h-8 rounded-full object-cover"
               />
@@ -30,12 +30,12 @@ const Header = () => {
               Event History
             </Link>
             <button className="hover:underline text-gray-700">Logout</button>
-          </>
-        ) : (
+          {/* </>
+        ) : ( */}
           <Link href="/login" className="hover:underline text-gray-700">
             Login
           </Link>
-        )}
+        {/* )} */}
       </nav>
     </header>
   );

@@ -205,14 +205,14 @@ export default function AdminSidebar() {
             >
               <Modal.Header />
               <Modal.Body>
-                <div className="text-center">
+                <div className="text-center ">
                   <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                     Are you sure you want to Logout?
                   </h3>
                   <div className="flex justify-center gap-4">
                   <Link href={"/logout"}>
-                    <Button color="blue" onClick={() => setOpenModal(false)}>
-                      {"Yes, I'm sure"}
+                    <Button color="blue" className="text-white bg-blue-500" onClick={() => setOpenModal(false)}>
+                      Yes, I'm sure
                     </Button>
                     </Link>
                     <Button color="gray" onClick={() => setOpenModal(false)}>

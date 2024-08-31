@@ -270,7 +270,6 @@ const UserProfile: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-
     const userId = "66d0c1f6cdc0921afcbb6523";
 
     axios
@@ -310,7 +309,11 @@ const UserProfile: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-[300px]">
+        <div className="w-16 h-16 border-4 border-t-4 border-purple-600 border-solid rounded-full animate-spin"></div>
+      </div>
+    );
   }
 
   if (error) {
