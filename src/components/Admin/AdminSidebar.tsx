@@ -123,7 +123,7 @@ export default function AdminSidebar() {
             <Link href={"/admin/createEvents"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                  pathname === "/admin/department/course" ? "bg-[#3d24fc2a]": ""
+                  pathname === "/admin/createEvents" ? "bg-[#3d24fc2a]": ""
                 }`}
               >
                 <FaCalendarPlus />

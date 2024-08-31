@@ -40,10 +40,10 @@ const ParticipantPage = () => {
     <>
       <div className="flex justify-between items-center pt-6 py-4 lg:px-8 px-3 bg-slate-50">
         <h1 className="text-3xl font-bold text-purple-600 lg:ml-0 max-sm:ml-8 sm:ml-8">
-          Participants by Event
+          Participants
         </h1>
         <div className="text-xl font-semibold text-gray-600">
-          Total Participants: <span className="text-purple-600">160</span>
+          All Participants: <span className="text-purple-600">160</span>
         </div>
         {/* <Link href={"admin/createEvents"}>
           <button className="bg-purple-300 hover:bg-purple-400 rounded-full px-4 py-2">

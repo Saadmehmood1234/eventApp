@@ -60,7 +60,7 @@ const DisplayTable = ({
   return (
     <>
       <div className="flex justify-between items-center py-4 px-4 lg:px-8 bg-slate-50">
-        <h1 className="text-3xl font-bold">Users</h1>
+        <h1 className="text-3xl text-purple-600 font-bold">Users</h1>
         <Link href={"employee/new"}>
           <button className="bg-purple-300 hover:bg-purple-400 rounded-full px-4 py-2">
             <span className="block lg:hidden text-xl font-bold">+</span>

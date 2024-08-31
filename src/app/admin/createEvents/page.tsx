@@ -47,10 +47,25 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-4xl bg-gradient-to-b from-[#FEF6EC] to-[#FBEAD1]">
-      <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-extrabold text-gray-800 text-center mb-2">
-        Create New Event
+    <>
+    <div className=" text-center items-center pt-6 py-4 lg:px-8 px-3 bg-slate-50">
+      <h1 className="text-4xl font-bold text-purple-600 text-center lg:ml-0 max-sm:ml-8 sm:ml-8">
+      Create New Event
       </h1>
+      {/* <div className="text-xl font-semibold text-gray-600">
+        All Participants: <span className="text-purple-600">160</span>
+      </div> */}
+      {/* <Link href={"admin/createEvents"}>
+        <button className="bg-purple-300 hover:bg-purple-400 rounded-full px-4 py-2">
+          <span className="block lg:hidden text-xl font-bold">+</span>
+          <span className="hidden lg:block font-semibold">+ Add Event</span>
+        </button>
+      </Link> */}
+    </div>
+    <div className="container mx-auto p-6 max-w-4xl ">
+      {/* <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-extrabold text-gray-800 text-center mb-2">
+        Create New Event
+      </h1> */}
       <form
         onSubmit={handleSubmit}
         className="space-y-6 bg-white p-8 rounded-lg shadow-lg"
@@ -256,6 +271,7 @@ const CreateEvent = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 
