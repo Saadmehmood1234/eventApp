@@ -10,6 +10,9 @@ const Header = () => {
         <Link href="/" className="hover:underline text-gray-700">
           Events
         </Link>
+        <Link href="/admin" className="hover:underline text-gray-700">
+          Admin
+        </Link>
 
         {isLoggedIn ? (
           <>

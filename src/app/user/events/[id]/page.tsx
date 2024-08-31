@@ -1,6 +1,118 @@
-// src/app/user/events/[id]/page.tsx
-import React from 'react';
-import { FaMapMarkerAlt, FaCalendarAlt, FaClock, FaUser } from 'react-icons/fa';
+// import React from "react";
+// import { FaMapMarkerAlt, FaCalendarAlt, FaClock, FaUser } from "react-icons/fa";
+// import { notFound } from "next/navigation";
+// import Link from "next/link";
+// const formatDate = (dateString: string) => {
+//   const options: Intl.DateTimeFormatOptions = {
+//     year: "numeric",
+//     month: "long",
+//     day: "numeric",
+//   };
+//   return new Date(dateString).toLocaleDateString(undefined, options);
+// };
+// interface EventDetailProps {
+//   params: {
+//     id: string;
+//   };
+// }
+
+// interface Event {
+//   id: string;
+//   title: string;
+//   startDate: string;
+//   endDate: string;
+//   image: string;
+//   duration: string;
+//   location: string;
+//   description: string;
+//   organiser: string;
+// }
+
+// const EventDetail: React.FC<EventDetailProps> = async ({ params }) => {
+//   const { id } = params;
+//   const response = await fetch(`http://localhost:3000//api/getevent/${id}`, {
+//     cache: "no-store",
+//   });
+//   console.log(response);
+//   if (!response.ok) {
+//     return notFound();
+//   }
+
+//   const data = await response.json();
+//   const event: Event = data.event;
+
+//   if (!event) {
+//     return <div>Event not found</div>;
+//   }
+
+//   return (
+//     <div className="min-h-screen bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 flex justify-center items-center text-gray-800">
+//       <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-8">
+//         <img
+//           src={event.image || "/eventa1.jpg"}
+//           alt={event.title}
+//           className="w-full h-64 object-cover rounded-lg mb-6"
+//         />
+//         <h1 className="text-4xl font-bold text-gray-900 mb-4">{event.title}</h1>
+
+//         <div className="flex flex-col flex-wrap gap-6 text-gray-700 mb-6">
+//           <div className="flex items-center mr-6">
+//             <FaCalendarAlt className="mr-2 text-indigo-600" />
+//             <span>
+//               {formatDate(event.startDate)}- {formatDate(event.endDate)}
+//             </span>
+//           </div>
+//           {/* <div className="flex items-center mr-6">
+//             <FaClock className="mr-2 text-indigo-600" />
+//             <span>{event.duration}</span>
+//           </div> */}
+//           <div className="flex items-center mr-6">
+//             <FaMapMarkerAlt className="mr-2 text-indigo-600" />
+//             <span>{event.location}</span>
+//           </div>
+//         </div>
+
+//         <div className="flex items-center text-gray-700 mb-6">
+//           <FaUser className="mr-2 text-indigo-600" />
+//           <h2 className="text-xl font-semibold text-gray-900">Organised by:</h2>
+//           <span className="ml-2 text-lg text-gray-700">{event.organiser}</span>
+//         </div>
+
+//         <div className="mb-6">
+//           <h2 className="text-xl font-semibold text-gray-900 mb-2">
+//             Description
+//           </h2>
+//           <p className="text-lg text-gray-700">{event.description}</p>
+//         </div>
+
+//         <div className="text-center mt-8">
+//           <Link href={`/user/registration/${id}`}>
+//             <button className="bg-green-600 text-white px-6 py-3 rounded-full shadow-md hover:bg-green-700 transition duration-300 ease-in-out">
+//               Register Now
+//             </button>
+//           </Link>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default EventDetail;
+
+"use client"
+import React, { useState, useEffect } from "react";
+import { FaMapMarkerAlt, FaCalendarAlt, FaUser } from "react-icons/fa";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+
+const formatDate = (dateString: string) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
 
 interface EventDetailProps {
   params: {
@@ -14,60 +126,75 @@ interface Event {
   startDate: string;
   endDate: string;
   image: string;
-  duration: string;
   location: string;
   description: string;
   organiser: string;
 }
 
-const events: Event[] = [
-  {
-    id: '1',
-    title: 'Tech Conference 2024',
-    startDate: '2024-09-01',
-    endDate: '2024-09-03',
-    image: '/newEvent.jpeg',
-    duration: '3 Days',
-    location: 'Main Auditorium, College Campus',
-    description: 'An exciting conference featuring the latest advancements in technology...',
-    organiser: 'Tech Club',
-  },
-  // Add more events here
-];
+const EventDetail: React.FC<EventDetailProps> = ({ params }) => {
+  const { id } = params;
 
-async function fetchEvent(id: string): Promise<Event | undefined> {
-  return events.find(event => event.id === id);
-}
+  const [event, setEvent] = useState<Event | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
-export async function generateStaticParams() {
-  return events.map(event => ({ id: event.id }));
-}
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/getevent/${id}`, {
+          cache: "no-store",
+        });
 
-const EventDetail: React.FC<EventDetailProps> = async ({ params }) => {
-  const event = await fetchEvent(params.id);
+        if (!response.ok) {
+          setError(true);
+          return notFound();
+        }
 
-  if (!event) {
-    return <div>Event not found</div>;
+        const data = await response.json();
+        setEvent(data.event);
+      } catch (error) {
+        console.error("Error fetching event:", error);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvent();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center text-gray-800">
+        <div className="text-xl font-semibold">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error || !event) {
+    return (
+      <div className="min-h-screen flex justify-center items-center text-gray-800">
+        <div className="text-xl font-semibold">Event not found</div>
+      </div>
+    );
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 flex justify-center items-center text-gray-800">
       <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-8">
         <img
-          src={event.image}
+          src={event.image || "/eventa1.jpg"}
           alt={event.title}
           className="w-full h-64 object-cover rounded-lg mb-6"
         />
         <h1 className="text-4xl font-bold text-gray-900 mb-4">{event.title}</h1>
 
-        <div className="flex flex-wrap items-center text-gray-700 mb-6">
+        <div className="flex flex-col flex-wrap gap-6 text-gray-700 mb-6">
           <div className="flex items-center mr-6">
             <FaCalendarAlt className="mr-2 text-indigo-600" />
-            <span>{event.startDate} - {event.endDate}</span>
-          </div>
-          <div className="flex items-center mr-6">
-            <FaClock className="mr-2 text-indigo-600" />
-            <span>{event.duration}</span>
+            <span>
+              {formatDate(event.startDate)} - {formatDate(event.endDate)}
+            </span>
           </div>
           <div className="flex items-center mr-6">
             <FaMapMarkerAlt className="mr-2 text-indigo-600" />
@@ -87,9 +214,11 @@ const EventDetail: React.FC<EventDetailProps> = async ({ params }) => {
         </div>
 
         <div className="text-center mt-8">
-          <button className="bg-green-600 text-white px-6 py-3 rounded-full shadow-md hover:bg-green-700 transition duration-300 ease-in-out">
-            Register Now
-          </button>
+          <Link href={`/user/registration/${id}`}>
+            <button className="bg-green-600 text-white px-6 py-3 rounded-full shadow-md hover:bg-green-700 transition duration-300 ease-in-out">
+              Register Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -97,3 +226,4 @@ const EventDetail: React.FC<EventDetailProps> = async ({ params }) => {
 };
 
 export default EventDetail;
+
