@@ -41,7 +41,7 @@ const EventDetail: React.FC<EventDetailProps> = ({ params }) => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/getevent/${id}`, {
+        const response = await fetch(`/api/getevent/${id}`, {
           cache: "no-store",
         });
 
