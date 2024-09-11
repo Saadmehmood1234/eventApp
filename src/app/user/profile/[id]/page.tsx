@@ -242,7 +242,8 @@
 import { Avatar, Button, Card, Modal } from "flowbite-react";
 import { useState, useEffect, ChangeEvent } from "react";
 import axios from "axios";
-
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 // Define a type for user profile data
 interface UserProfileData {
   fullname: string;
@@ -254,7 +255,7 @@ interface UserProfileData {
   profilePic: string;
 }
 
-const UserProfile: React.FC = () => {
+const UserProfile: React.FC =async () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [personalInfo, setPersonalInfo] = useState<UserProfileData>({
     fullname: "",
@@ -288,6 +289,14 @@ const UserProfile: React.FC = () => {
   const handleEditClick = () => {
     setModalOpen(true);
   };
+  const { userId } = auth();
+  const isAuth = !!userId;
+  const user = await currentUser();
+
+  if (!isAuth) {
+    redirect("/");
+  }
+
 
   const handleSave = () => {
     setModalOpen(false);

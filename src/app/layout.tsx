@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { ClerkProvider, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import "./globals.css";
+import Header from "@/components/Header";
+import { dark } from "@clerk/themes";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -14,11 +17,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-
-      <body className={inter.className}>
-      {children}
-      </body>
-    </html>
+    <ClerkProvider appearance={{ baseTheme: dark }}>
+      <html lang="en">
+        <body className={inter.className}>
+          <ClerkLoading>
+            <div className="flex justify-center items-center min-h-[300px]">
+              <div className="w-16 h-16 border-4 border-t-4 border-purple-600 border-solid rounded-full animate-spin"></div>
+            </div>
+          </ClerkLoading>
+          <ClerkLoaded>
+            <Header/>
+            {children}</ClerkLoaded>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
