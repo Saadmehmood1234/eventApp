@@ -58,7 +58,7 @@ const eventSchema: Schema<IEvent> = new Schema({
   attendees: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'EventParticipant',
     },
   ],
   imageUrl: {

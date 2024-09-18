@@ -66,7 +66,7 @@ const EventsCard: React.FC<EventsCardProps> = ({ searchQuery }) => {
   const visibleEvents = showAll ? filteredEvents : filteredEvents.slice(0, 6);
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="p-6">
       <div className="mb-8 text-3xl font-semibold text-orange-600">
         <h1>Upcoming Events</h1>
       </div>

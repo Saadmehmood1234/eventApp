@@ -3,10 +3,11 @@ import { auth } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
 const Header = () => {
   const { userId } = auth();
+  
   return (
     <header className="w-full flex justify-between items-center p-6 bg-red-200 bg-opacity-70 backdrop-filter backdrop-blur-lg rounded-b-lg shadow-lg">
-      <div className="text-2xl font-bold text-gray-900">Eventify</div>
-      <nav className="space-x-8 flex max-[410px]:hidden items-center">
+      <div className="text-2xl ml-2 font-bold text-gray-900">Eventify</div>
+      <nav className="gap-3 flex  items-center">
         {!userId ? (
           <>
           <Link href="/sign-in" className="hover:underline text-gray-700">
@@ -18,24 +19,25 @@ const Header = () => {
         </>
         ) : (
           <>
-            <Link href="/" className="hover:underline text-gray-700">
+            {/* <Link href="/" className="hover:underline text-gray-700">
               Events
-            </Link>
-            <Link href="/admin" className="hover:underline text-gray-700">
+            </Link> */}
+            {/* <Link href="/admin" className="hover:underline text-gray-700">
               Admin
-            </Link>
-            <Link href="/user/profile">
-          
-            <li className="flex items-center">
-                <UserButton />
-              </li>
-            </Link>
-            <Link
-              href="/event-history"
+            </Link> */}
+         
+            {/* <Link
+              href="/user/history"
               className="hover:underline text-gray-700"
             >
-              Event History
-            </Link>
+              History
+            </Link> */}
+            <Link href="/user/profile">
+          
+          <li className="flex items-center">
+              <UserButton />
+            </li>
+          </Link>
             {/* <button className="hover:underline text-gray-700">Logout</button> */}
           </>
         )}

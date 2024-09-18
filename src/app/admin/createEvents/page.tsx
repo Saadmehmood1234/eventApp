@@ -105,7 +105,7 @@ const CreateEvent = () => {
               required
             />
           </div>
-          <div className="col-span-1">
+          <div className="col-span-2">
             <label
               htmlFor="location"
               className="block text-sm font-semibold text-gray-700 mb-2"
@@ -236,12 +236,12 @@ const CreateEvent = () => {
             Image URL
           </label>
           <input
-            type="text"
+            type="file"
             id="imageUrl"
             name="imageUrl"
             value={formData.imageUrl}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 bg-gray-200/60"
+            // className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 bg-gray-200/60"
           />
         </div>
         <div>
