@@ -39,7 +39,7 @@ const CreateEvent = () => {
         tags: tagsArray,
       });
       if (response.status === 201) {
-        router.push("/admin/eventpopup");
+        router.push("/admin");
       }
     } catch (error) {
       console.error("Failed to create event", error);

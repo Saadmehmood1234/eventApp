@@ -172,8 +172,8 @@ const EventsCard: React.FC<EventsCardProps> = ({ events, searchQuery }) => {
       </div>
       {filteredEvents.length > 0 ? (
         <div>
-          {/* <div className="grid grid-cols-1   sm:grid-cols-2 lg:grid-cols-3 gap-8"> */}
-          <div className="flex justify-center items-center gap-10 flex-wrap max-w-6xl">
+          <div className="grid grid-cols-1   sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* <div className="flex justify-center items-center gap-10 flex-wrap max-w-6xl"> */}
             {visibleEvents.map((event) => (
               <Link key={event.id} href={`/user/events/${event.id}`}>
                 <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 cursor-pointer">
