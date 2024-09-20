@@ -77,13 +77,15 @@ export async function fetchEventById(eventId: string) {
         startDate: event.startDate,
         endDate: event.endDate,
         image: event.imageUrl,
+        location: event.location,
+        description: event.description,
+        organiser: event.organiser,
     };
   } catch (error) {
     console.error('Error fetching event:', error);
     throw new Error('Internal server error'); // Handle internal error
   }
 }
-
 
 
 export async function getParticipants() {

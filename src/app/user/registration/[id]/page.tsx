@@ -619,7 +619,6 @@ interface Event {
   startDate: string;
   endDate: string;
   image: string;
-  duration: string;
   location: string;
   description: string;
   organiser: string;
@@ -669,8 +668,22 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const eventData = await fetchEventById(params.id); // Call the server action
-        setEvent(eventData);
+        const participantData = await fetchEventById(params.id); // Call the server action
+        
+        // Ensure participantData is properly formatted
+        if (participantData) {
+          const formattedEvent: Event = {
+            id: participantData.id as string, // Ensure this is a string
+            title: participantData.title,
+            startDate: participantData.startDate.toString(), // Convert to string if needed
+            endDate: participantData.endDate?.toString() || "", // Convert and provide default
+            image: participantData.image || "",
+            organiser: participantData.organiser, // Provide a default
+            description: participantData.description, // Provide a default
+            location: participantData.location, // Provide a default
+          };
+          setEvent(formattedEvent);
+        }
       } catch (err) {
         console.error("Error fetching event:", err);
         setError(true);
@@ -678,9 +691,10 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
         setLoading(false);
       }
     };
-
+  
     fetchEvent();
   }, [params.id]);
+  
 
   if (loading) {
     return (

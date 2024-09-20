@@ -59,22 +59,52 @@ const ParticipantPage = () => {
 
   // Fetch participants
  
-  useEffect(() => {
-    const fetchParticipant = async () => {
-      try {
-        const participantsData = await getParticipants();
-        console.log(participantsData) // Call the server action
-        setParticipants(participantsData);
-      } catch (err) {
-        console.error("Error fetching event:", err);
-        // setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchParticipant = async () => {
+  //     try {
+  //       const participantsData = await getParticipants();
+  //       console.log(participantsData) // Call the server action
+  //       setParticipants(participantsData);
+  //     } catch (err) {
+  //       console.error("Error fetching event:", err);
+  //       // setError(true);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchParticipant();
-  }, [])
+  //   fetchParticipant();
+  // }, [])
+  // Fetch participants
+useEffect(() => {
+  const fetchParticipant = async () => {
+    try {
+      const participantsData = await getParticipants();
+      
+      // Cast participantsData to Participant[]
+      const formattedParticipants: Participant[] = participantsData.map((participant: any) => ({
+        id: participant.id as string, // Ensure id is treated as a string
+        fullname: participant.fullname,
+        enrollment: participant.enrollment,
+        semester: participant.semester,
+        course: participant.course,
+        eventId: participant.eventId,
+        phone: participant.phone,
+        email: participant.email,
+        event: participant.event,
+      }));
+
+      setParticipants(formattedParticipants);
+    } catch (err) {
+      console.error("Error fetching participants:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchParticipant();
+}, []);
+
 
   // Toggle the expanded state of an event
   const toggleExpand = (eventId: string) => {
