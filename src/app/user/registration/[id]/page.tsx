@@ -706,7 +706,7 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
 
   if (error || !event) {
     return (
-      <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-[#FEF6EC] to-[#FBEAD1]">
+      <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-[#e6b0cd] to-[#9fc2f0]">
         <div className="text-xl font-semibold">Event not found</div>
       </div>
     );
@@ -714,7 +714,7 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
 
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-[#FEF6EC] to-[#FBEAD1] p-6">
+    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-[#ebcddd] to-[#c8daf1] p-6">
       {/* Header */}
       <div className="text-center mb-6 flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-8">
         <div className="flex flex-col items-center lg:items-start">
@@ -779,7 +779,7 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
                 setInputs({ ...inputs, fullname: e.target.value })
               }
               required
-              className="mt-1  w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
+              className="mt-1  w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#c8dde6]"
               placeholder="Enter your full name"
             />
           </div>
@@ -795,7 +795,7 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
                 setInputs({ ...inputs, enrollment: e.target.value })
               }
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#c8dde6]"
               placeholder="Enter your enrollment number"
             />
           </div>
@@ -808,7 +808,7 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
               required
               value={inputs.course}
               onChange={(e) => setInputs({ ...inputs, course: e.target.value })}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#c8dde6]"
             >
               <option value="">Select your course</option>
               <option>BCA</option>
@@ -829,7 +829,7 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
                 setInputs({ ...inputs, semester: e.target.value })
               }
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#c8dde6]"
             >
               <option value="">Select your semester</option>
               <option>First</option>
@@ -850,7 +850,7 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
               value={inputs.email}
               onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#c8dde6]"
               placeholder="Enter your email"
             />
           </div>
@@ -864,7 +864,7 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
               value={inputs.phone}
               onChange={(e) => setInputs({ ...inputs, phone: e.target.value })}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#c8dde6]"
               placeholder="Enter your phone number"
             />
           </div>
