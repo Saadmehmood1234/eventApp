@@ -353,7 +353,7 @@ const ParticipantPage = () => {
     const fetchParticipants = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/api/getparticipants");
+        const response = await fetch(`/api/getparticipants`);
         if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
         const formattedParticipants = data.participants.map(
