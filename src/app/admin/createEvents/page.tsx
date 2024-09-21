@@ -17,6 +17,7 @@ const CreateEvent = () => {
     tags: "",
     organiser: "",
     sponsers: "",
+    category:"",
     // time: "12:00",
   });
 
@@ -105,7 +106,7 @@ const CreateEvent = () => {
               required
             />
           </div>
-          <div className="col-span-2">
+          <div className="col-span-1 max-lg:col-span-2">
             <label
               htmlFor="location"
               className="block text-sm font-semibold text-gray-700 mb-2"
@@ -122,7 +123,26 @@ const CreateEvent = () => {
               required
             />
           </div>
-          {/* <div className="col-span-1 max-lg:col-span-2">
+          <div className="col-span-1 max-lg:col-span-2">
+            <label
+              htmlFor="category"
+              className="block text-sm font-semibold text-gray-700 mb-2"
+            >
+              Category
+            </label>
+            <input
+              type="text"
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 bg-gray-200/60"
+              required
+            />
+          </div>
+         
+        </div>
+ {/* <div className="col-span-1 max-lg:col-span-2">
             <label
               htmlFor="time"
               className="block text-sm font-semibold text-gray-700 mb-2"
@@ -139,8 +159,6 @@ const CreateEvent = () => {
               required
             />
           </div> */}
-        </div>
-
         <div>
           <label
             htmlFor="description"

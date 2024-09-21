@@ -1,44 +1,73 @@
 "use server"
-// app/events/actions.ts
-
-// import { NextResponse } from 'next/server';
-// import Event from '@/models/Event';
-// import connectToMongoDb from '@/utils/dbConnect';
-
-// // // Server Action to fetch events
-// // export const fetchEvents = async () => {
-// //   await connectToMongoDb();
-// //   try {
-// //     const events = await Event.find();
-// //     console.log(events)
-// //     return NextResponse.json({ events }, { status: 200 });
-// //   } catch (error) {
-// //     console.error('Error fetching events:', error);
-// //     return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
-// //   }
-// // };
-// import { ObjectId } from "mongodb";
-
-// // Assuming you are fetching data from MongoDB like this:
-// export const fetchEvents = async () => {
-//     const db=await connectToMongoDb();
-//   const events = await db.collection("events").find().toArray();
-
-//   // Serialize data to remove ObjectId and Date issues
-//   const serializedEvents = events.map((event:any) => ({
-//     ...event,
-//     _id: event._id.toString(), // Convert ObjectId to string
-//     startDate: event.startDate.toISOString(), // Convert Date to ISO string
-//     endDate: event.endDate.toISOString(), // Convert Date to ISO string
-//   }));
-
-//   return serializedEvents;
-// };
-
 import { NextResponse } from 'next/server';
 import Event from '@/models/Event';
 import connectToMongoDb from '@/utils/dbConnect';
 import EventParticipant from '@/models/Participants';
+export async function createEvent(eventData: {
+  id:string;
+  title: string;
+  members: number;
+  description: string;
+  startDate: string;
+  endDate?: string;
+  location: string;
+  organiser: string;
+  sponsers: string;
+  imageUrl?: string;
+  tags?: string[];
+}) {
+  await connectToMongoDb();
+  const {
+    title,
+    members,
+    description,
+    startDate,
+    endDate,
+    location,
+    organiser,
+    sponsers,
+    imageUrl,
+    tags,
+  } = eventData;
+
+  if (!title || !description || !startDate || !location || !organiser || !members) {
+    throw new Error("Missing required fields");
+  }
+
+  try {
+    const newEvent = new Event({
+      title,
+      members,
+      description,
+      startDate,
+      endDate,
+      location,
+      organiser,
+      sponsers,
+      imageUrl,
+      tags,
+    });
+
+    await newEvent.save();
+
+    return {
+      title: newEvent.title,
+      members: newEvent.members,
+      description: newEvent.description,
+      startDate: newEvent.startDate,
+      endDate: newEvent.endDate,
+      location: newEvent.location,
+      organiser: newEvent.organiser,
+      sponsers: newEvent.sponsers,
+      imageUrl: newEvent.imageUrl,
+      tags: newEvent.tags,
+    };
+  } catch (error) {
+    console.error("Error in event creation:", error);
+    throw new Error("Internal server error");
+  }
+}
+
 export async function getEvents() {
   try {
     await connectToMongoDb(); // Connect to MongoDB
@@ -49,6 +78,9 @@ export async function getEvents() {
       startDate: event.startDate,
       endDate: event.endDate,
       image: event.imageUrl,
+      location: event.location,
+      description: event.description,
+      organiser: event.organiser,
     }));
   } catch (error) {
     console.error("Error fetching events:", error);
@@ -109,3 +141,35 @@ export async function getParticipants() {
     }
   }
   
+
+
+  export async function fetchParticipantsById(participantId: string) {
+    await connectToMongoDb(); // Connect to MongoDB
+  
+    if (!participantId || participantId.length !== 24) {
+      throw new Error('Invalid ID'); // Handle invalid ID
+    }
+  
+    try {
+      const participants = await EventParticipant.findById(participantId);
+  
+      if (!participants) {
+        throw new Error('Event not found'); // Handle event not found
+      }
+  
+      return {
+        id: participants._id,
+        fullname: participants.fullname,
+        enrollment: participants.enrollment,
+        semester: participants.semester,
+        course: participants.course,
+        eventId: participants.eventId,
+        phone: participants.phone,
+        email: participants.email,
+        event: participants.event,
+      };
+    } catch (error) {
+      console.error('Error fetching event:', error);
+      throw new Error('Internal server error'); // Handle internal error
+    }
+  }

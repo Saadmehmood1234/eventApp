@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { FaMapMarkerAlt, FaCalendarAlt, FaUser } from "react-icons/fa";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-
+import { fetchEventById } from "@/actions/data";
 const formatDate = (dateString: string) => {
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
@@ -38,30 +38,62 @@ const EventDetail: React.FC<EventDetailProps> = ({ params }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
+
+
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await fetch(`/api/getevent/${id}`, {
-          cache: "no-store",
-        });
-
-        if (!response.ok) {
-          setError(true);
-          return notFound();
+        const participantData = await fetchEventById(params.id); // Call the server action
+        
+        // Ensure participantData is properly formatted
+        if (participantData) {
+          const formattedEvent: Event = {
+            id: participantData.id as string, // Ensure this is a string
+            title: participantData.title,
+            startDate: participantData.startDate.toString(), // Convert to string if needed
+            endDate: participantData.endDate?.toString() || "", // Convert and provide default
+            image: participantData.image || "",
+            organiser: participantData.organiser, // Provide a default
+            description: participantData.description, // Provide a default
+            location: participantData.location, // Provide a default
+          };
+          setEvent(formattedEvent);
         }
-
-        const data = await response.json();
-        setEvent(data.event);
-      } catch (error) {
-        console.error("Error fetching event:", error);
+      } catch (err) {
+        console.error("Error fetching event:", err);
         setError(true);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchEvent();
-  }, [id])
+  }, [params.id]);
+
+  // useEffect(() => {
+  //   const fetchEvent = async () => {
+  //     try {
+  //       const response = await fetch(`/api/getevent/${id}`, {
+  //         cache: "no-store",
+  //       });
+
+  //       if (!response.ok) {
+  //         setError(true);
+  //         return notFound();
+  //       }
+
+  //       const data = await response.json();
+  //       setEvent(data.event);
+  //     } catch (error) {
+  //       console.error("Error fetching event:", error);
+  //       setError(true);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchEvent();
+  // }, [id])
 
   if (loading) {
     

@@ -57,25 +57,6 @@ const ParticipantPage = () => {
     fetchEvents();
   }, []);
 
-  // Fetch participants
- 
-  // useEffect(() => {
-  //   const fetchParticipant = async () => {
-  //     try {
-  //       const participantsData = await getParticipants();
-  //       console.log(participantsData) // Call the server action
-  //       setParticipants(participantsData);
-  //     } catch (err) {
-  //       console.error("Error fetching event:", err);
-  //       // setError(true);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchParticipant();
-  // }, [])
-  // Fetch participants
 useEffect(() => {
   const fetchParticipant = async () => {
     try {

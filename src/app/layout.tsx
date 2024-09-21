@@ -26,7 +26,9 @@ export default function RootLayout({
             </div>
           </ClerkLoading>
           <ClerkLoaded>
-            <Header/>
+     
+             <Header/>
+    
             {children}
             </ClerkLoaded>
         </body>

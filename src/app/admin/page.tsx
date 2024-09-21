@@ -74,45 +74,6 @@ const Dashboard = () => {
             <FaCircleArrowRight className="h-6 w-6 cursor-pointer hover:text-orange-600" />
           </div>
         </div>
-        {/* <div className="bg-blue-400 text-white p-6 rounded-lg shadow-md flex flex-col justify-between">
-          <div className="flex justify-between items-center">
-            <BiSolidBook className="h-16 w-16" />
-            <div>
-              <h2 className="text-2xl mb-2 flex justify-end">1</h2>
-              <p>New Booking</p>
-            </div>
-          </div>
-          <div className="bg-white text-blue-400 p-2 mt-4 rounded-lg flex justify-between items-center">
-            <p className="text-sm">View Details</p>
-            <FaCircleArrowRight className="h-6 w-6 cursor-pointer hover:text-blue-600" />
-          </div>
-        </div>
-        <div className="bg-green-400 text-white p-6 rounded-lg shadow-md flex flex-col justify-between">
-          <div className="flex justify-between items-center">
-            <BiSolidBook className="h-16 w-16" />
-            <div>
-              <h2 className="text-2xl mb-2 flex justify-end">1</h2>
-              <p>Confirmed Booking</p>
-            </div>
-          </div>
-          <div className="bg-white text-green-400 p-2 mt-4 rounded-lg flex justify-between items-center">
-            <p className="text-sm">View Details</p>
-            <FaCircleArrowRight className="h-6 w-6 cursor-pointer hover:text-green-600" />
-          </div>
-        </div>
-        <div className="bg-red-400 text-white p-6 rounded-lg shadow-md flex flex-col justify-between">
-          <div className="flex justify-between items-center">
-            <BiSolidBook className="h-16 w-16" />
-            <div>
-              <h2 className="text-2xl mb-2 flex justify-end">0</h2>
-              <p>Total Reg. Users</p>
-            </div>
-          </div>
-          <div className="bg-white text-red-400 p-2 mt-4 rounded-lg flex justify-between items-center">
-            <p className="text-sm">View Details</p>
-            <FaCircleArrowRight className="h-6 w-6 cursor-pointer hover:text-red-600" />
-          </div>
-        </div> */}
         <div className="bg-red-500 text-white p-6 rounded-lg shadow-md flex flex-col justify-between">
           <div className="flex justify-between items-center">
             <BiSolidBook className="h-16 w-16" />
