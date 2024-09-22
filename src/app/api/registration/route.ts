@@ -10,13 +10,22 @@ export const POST = async (req: NextRequest) => {
 
   try {
     const { fullname, enrollment, semester, course, email, phone, eventId } = await req.json();
-    const existingUser = await EventRegistration.findOne({ email });
+
+    const existingUser = await EventRegistration.findOne({
+      $or: [
+        { email },
+        { enrollment },
+        { phone }
+      ],
+    });
+    
     if (existingUser) {
       return NextResponse.json(
-        { error: "Already registered" },
+        { error: "User with the same email, enrollment number, or phone already registered" },
         { status: 400 }
       );
     }
+    
     const ParticipantEvent = await Event.findById(eventId);
     const event=ParticipantEvent?.title
     const newUser = new EventRegistration({
@@ -30,19 +39,6 @@ export const POST = async (req: NextRequest) => {
       eventId
     });
     await newUser.save();
-
-    // if (!event) {
-    //   return NextResponse.json({ message: "Event not found" }, { status: 404 });
-    // }
-
-    // if (!event.attendees) {
-    //   event.attendees = [];
-    // }
-    // event.attendees.push(newUser._id as mongoose.Schema.Types.ObjectId);
-
-    // console.log("Attendees before saving:", event.attendees);
-
-    // await event.save();
 
     console.log("Event after saving:", event); 
     return NextResponse.json(

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { RiCalendarScheduleFill } from "react-icons/ri";
 import { FaCalendarPlus } from "react-icons/fa6";
-
+import { MdEvent } from "react-icons/md";
 import {
   HiChartPie,
   HiUser,
@@ -109,6 +109,16 @@ export default function AdminSidebar() {
               </div>
             </Link>
 
+            <Link href={"/admin/allevents"}>
+              <div
+                className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
+                  pathname === "/admin/allevents" ? "bg-[#3d24fc2a]": ""
+                }`}
+              >
+           <MdEvent />
+                <p className="text">Events</p>
+              </div>
+            </Link>
             <Link href={"/admin/history"}>
               <div
                 className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${

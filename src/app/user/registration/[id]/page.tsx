@@ -1,611 +1,26 @@
-// // "use client";
-
-// // import Image from "next/image";
-// // import { useRouter } from "next/navigation";
-// // import React, { useState, useEffect, FormEvent } from "react";
-// // import SuccessModal from "@/components/SuccessModal"; // Adjust the import path as needed
-
-// // import useRegistration from "@/hooks/useRegistration";
-
-// // interface EventDetailProps {
-// //   params: {
-// //     id: string;
-// //   };
-// // }
-
-// // interface Event {
-// //   id: string;
-// //   title: string;
-// //   startDate: string;
-// //   endDate: string;
-// //   image: string;
-// //   duration: string;
-// //   location: string;
-// //   description: string;
-// //   organiser: string;
-// // }
-
-// // const formatDate = (dateString: string) => {
-// //   const options: Intl.DateTimeFormatOptions = {
-// //     year: "numeric",
-// //     month: "long",
-// //     day: "numeric",
-// //   };
-// //   return new Date(dateString).toLocaleDateString(undefined, options);
-// // };
-
-// // const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
-// //   const [loading, setLoading] = useState<boolean>(true);
-// //   const [error, setError] = useState<boolean>(false);
-// //   const [event, setEvent] = useState<Event | null>(null);
-// //   const [inputs, setInputs] = useState({
-// //     fullname: "",
-// //     enrollment: "",
-// //     semester: "",
-// //     course: "",
-// //     email: "",
-// //     phone: "",
-// //     eventId: params.id,
-// //   });
-// //   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-// //   const router = useRouter();
-// //   const { registration } = useRegistration();
-
-// //   const handleSubmit = async (e: FormEvent) => {
-// //     e.preventDefault();
-// //     setLoading(true);
-
-// //     try {
-// //       const data = await registration(inputs);
-// //       if (data) {
-// //         setIsModalOpen(true); // Open the modal on successful registration
-// //       }
-// //     } catch (error) {
-// //       console.error("Registration failed:", error);
-// //     } finally {
-// //       setLoading(false);
-// //     }
-// //   };
-
-// //   useEffect(() => {
-// //     const fetchEvent = async () => {
-// //       try {
-// //         const response = await fetch(`/api/getevent/${params.id}`, {
-// //           cache: "no-store",
-// //         });
-
-// //         if (!response.ok) {
-// //           setError(true);
-// //           return;
-// //         }
-
-// //         const data = await response.json();
-// //         setEvent(data.event);
-// //       } catch (err) {
-// //         console.error("Error fetching event:", err);
-// //         setError(true);
-// //       } finally {
-// //         setLoading(false);
-// //       }
-// //     };
-
-// //     fetchEvent();
-// //   }, [params.id]);
-
-// //   if (loading) {
-// //     return (
-// //       <div className="flex justify-center items-center min-h-[300px]">
-// //         <div className="w-16 h-16 border-4 border-t-4 border-purple-600 border-solid rounded-full animate-spin"></div>
-// //       </div>
-// //     );
-// //   }
-
-// //   if (error || !event) {
-// //     return (
-// //       <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-[#FEF6EC] to-[#FBEAD1]">
-// //         <div className="text-xl font-semibold">Event not found</div>
-// //       </div>
-// //     );
-// //   }
-
-// //   return (
-// //     <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-[#FEF6EC] to-[#FBEAD1] p-6">
-// //       {/* Header */}
-// //       <div className="text-center mb-6 flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-8">
-// //         <div className="flex flex-col items-center lg:items-start">
-// //           <Image
-// //             src="/innovation.png"
-// //             width={70}
-// //             height={70}
-// //             alt="Innovation Logo"
-// //           />
-// //           <h3 className="text-lg font-semibold mt-1 lg:mt-2 lg:-ml-6">
-// //             Creative Events
-// //           </h3>
-// //         </div>
-// //         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-extrabold text-gray-800 text-center lg:text-left">
-// //           Event Registration Form
-// //         </h1>
-// //       </div>
-
-// //       {/* Form Card */}
-// //       <div className="bg-white border-2 border-black rounded-lg shadow-lg p-6 sm:p-8 w-full max-w-4xl">
-// //         <div className="p-4 rounded-md mb-6 flex flex-row max-sm:flex-col justify-between border-b-4 border-black">
-// //           <div className="mb-4 lg:mb-0">
-// //             <h2 className="text-2xl font-bold text-gray-700 mb-6">
-// //               About This Event
-// //             </h2>
-// //             <ul className="text-lg text-gray-600 space-y-2">
-// //               <li>
-// //                 <strong>Event Name:</strong> {event.title}
-// //               </li>
-// //               <li>
-// //                 <strong>Start Date:</strong> {formatDate(event.startDate)}
-// //               </li>
-// //               <li>
-// //                 <strong>End Date:</strong> {formatDate(event.endDate)}
-// //               </li>
-// //               <li>
-// //                 <strong>Organizer:</strong> {event.organiser}
-// //               </li>
-// //             </ul>
-// //           </div>
-// //           <div className="flex flex-col items-center lg:items-end">
-// //             <img
-// //               src="https://i.pravatar.cc/150?img=5"
-// //               alt="Speaker Michelle Erica"
-// //               className="w-30 h-30 rounded-full mb-3"
-// //             />
-// //             <span className="text-xl font-extrabold text-gray-700 text-center">
-// //               Michelle Erica
-// //             </span>
-// //           </div>
-// //         </div>
-
-// //         <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
-// //           <div className="mb-2 max-sm:col-span-2">
-// //             <label className="block text-sm font-medium text-gray-700">
-// //               Full Name
-// //             </label>
-// //             <input
-// //               type="text"
-// //               value={inputs.fullname}
-// //               onChange={(e) =>
-// //                 setInputs({ ...inputs, fullname: e.target.value })
-// //               }
-// //               required
-// //               className="mt-1  w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-// //               placeholder="Enter your full name"
-// //             />
-// //           </div>
-
-// //           <div className="mb-2 max-sm:col-span-2">
-// //             <label className="block text-sm font-medium text-gray-700">
-// //               Enrollment No
-// //             </label>
-// //             <input
-// //               type="number"
-// //               value={inputs.enrollment}
-// //               onChange={(e) =>
-// //                 setInputs({ ...inputs, enrollment: e.target.value })
-// //               }
-// //               required
-// //               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-// //               placeholder="Enter your enrollment number"
-// //             />
-// //           </div>
-
-// //           <div className="mb-2 max-sm:col-span-2">
-// //             <label className="block text-sm font-medium text-gray-700">
-// //               Course
-// //             </label>
-// //             <select
-// //               required
-// //               value={inputs.course}
-// //               onChange={(e) => setInputs({ ...inputs, course: e.target.value })}
-// //               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-// //             >
-// //               <option value="">Select your course</option>
-// //               <option>BCA</option>
-// //               <option>BBA</option>
-// //               <option>MCA</option>
-// //               <option>MBA</option>
-// //               {/* Add other options as needed */}
-// //             </select>
-// //           </div>
-
-// //           {/* <div className="mb-2 max-sm:col-span-2">
-// //             <label className="block text-sm font-medium text-gray-700">
-// //               Semester
-// //             </label>
-// //             <input
-// //               type="text"
-// //               value={inputs.semester}
-// //               onChange={(e) =>
-// //                 setInputs({ ...inputs, semester: e.target.value })
-// //               }
-// //               required
-// //               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-// //               placeholder="Enter your semester"
-// //             />
-// //           </div> */}
-// //           <div className="mb-2 max-sm:col-span-2">
-// //             <label className="block text-sm font-medium text-gray-700">
-// //               Semester
-// //             </label>
-// //             <select
-// //               value={inputs.semester}
-// //               onChange={(e) =>
-// //                 setInputs({ ...inputs, semester: e.target.value })
-// //               }
-// //               required
-// //               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-// //             >
-// //               <option value="">Select your semester</option>
-// //               <option>First</option>
-// //               <option>Second</option>
-// //               <option>Third</option>
-// //               <option>Fourth</option>
-// //               <option>Fifth</option>
-// //               <option>Sixth</option>
-// //             </select>
-// //           </div>
-// //           <div className="mb-2 max-sm:col-span-2">
-// //             <label className="block text-sm font-medium text-gray-700">
-// //               Email Address
-// //             </label>
-// //             <input
-// //               type="email"
-// //               value={inputs.email}
-// //               onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
-// //               required
-// //               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-// //               placeholder="Enter your email address"
-// //             />
-// //           </div>
-
-// //           <div className="mb-2 max-sm:col-span-2">
-// //             <label className="block text-sm font-medium text-gray-700">
-// //               Phone Number
-// //             </label>
-// //             <input
-// //               type="tel"
-// //               value={inputs.phone}
-// //               onChange={(e) => setInputs({ ...inputs, phone: e.target.value })}
-// //               required
-// //               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-// //               placeholder="Enter your phone number"
-// //             />
-// //           </div>
-
-// //           {/* <div className="col-span-2 flex justify-end">
-// //             <button
-// //               type="submit"
-// //               disabled={loading}
-// //               className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition duration-150"
-// //             >
-// //               {loading ? "Registering..." : "Register"}
-// //             </button>
-// //           </div> */}
-
-// //           <div className="w-full col-span-2 flex justify-center items-center">
-// //             <button
-// //               className="w-full p-2 rounded-md bg-green-600 hover:bg-green-700 text-white transition duration-300"
-// //               type="submit"
-// //             >
-// //               {loading ? (
-// //                 <span className="animate-spin inline-block w-5 h-5 border-4 border-t-4 border-white border-opacity-30 rounded-full"></span>
-// //               ) : (
-// //                 "Register"
-// //               )}
-// //             </button>
-// //           </div>
-// //         </form>
-// //       </div>
-
-// //       {/* Success Modal */}
-// //       <SuccessModal
-// //         isOpen={isModalOpen}
-// //         onClose={() => setIsModalOpen(false)}
-// //       />
-// //     </div>
-// //   );
-// // };
-
-// // export default EventRegistrationForm;
-
-// "use client";
-
-// import Image from "next/image";
-// import { useRouter } from "next/navigation";
-// import React, { useState, useEffect, FormEvent } from "react";
-// import SuccessModal from "@/components/SuccessModal";
-// import useRegistration from "@/hooks/useRegistration";
-// import { fetchEventById } from "@/actions/data"; // Import the server action
-
-// interface EventDetailProps {
-//   params: {
-//     id: string;
-//   };
-// }
-
-// interface Event {
-//   id: string;
-//   title: string;
-//   startDate: string;
-//   endDate: string;
-//   image: string;
-//   duration: string;
-//   location: string;
-//   description: string;
-//   organiser: string;
-// }
-
-// const formatDate = (dateString: string) => {
-//   const options: Intl.DateTimeFormatOptions = {
-//     year: "numeric",
-//     month: "long",
-//     day: "numeric",
-//   };
-//   return new Date(dateString).toLocaleDateString(undefined, options);
-// };
-
-// const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
-//   const [loading, setLoading] = useState<boolean>(true);
-//   const [error, setError] = useState<boolean>(false);
-//   const [event, setEvent] = useState<Event | null>(null);
-//   const [inputs, setInputs] = useState({
-//     fullname: "",
-//     enrollment: "",
-//     semester: "",
-//     course: "",
-//     email: "",
-//     phone: "",
-//     eventId: params.id,
-//   });
-//   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-//   const router = useRouter();
-//   const { registration } = useRegistration();
-
-  // const handleSubmit = async (e: FormEvent) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-
-  //   try {
-  //     const data = await registration(inputs);
-  //     if (data) {
-  //       setIsModalOpen(true); // Open the modal on successful registration
-  //     }
-  //   } catch (error) {
-  //     console.error("Registration failed:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const fetchEvent = async () => {
-  //     try {
-  //       const eventData = await fetchEventById(params.id); // Call the server action
-  //       setEvent(eventData);
-  //     } catch (err) {
-  //       console.error("Error fetching event:", err);
-  //       setError(true);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchEvent();
-  // }, [params.id]);
-
-  // if (loading) {
-  //   return (
-  //     <div className="flex justify-center items-center min-h-[300px]">
-  //       <div className="w-16 h-16 border-4 border-t-4 border-purple-600 border-solid rounded-full animate-spin"></div>
-  //     </div>
-  //   );
-  // }
-
-  // if (error || !event) {
-  //   return (
-  //     <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-[#FEF6EC] to-[#FBEAD1]">
-  //       <div className="text-xl font-semibold">Event not found</div>
-  //     </div>
-  //   );
-  // }
-
-//   return (
-//     <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-[#FEF6EC] to-[#FBEAD1] p-6">
-//       {/* Header */}
-//       <div className="text-center mb-6 flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-8">
-//         <div className="flex flex-col items-center lg:items-start">
-//           <Image
-//             src="/innovation.png"
-//             width={70}
-//             height={70}
-//             alt="Innovation Logo"
-//           />
-//           <h3 className="text-lg font-semibold mt-1 lg:mt-2 lg:-ml-6">
-//             Creative Events
-//           </h3>
-//         </div>
-//         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-extrabold text-gray-800 text-center lg:text-left">
-//           Event Registration Form
-//         </h1>
-//       </div>
-
-//       {/* Form Card */}
-//       <div className="bg-white border-2 border-black rounded-lg shadow-lg p-6 sm:p-8 w-full max-w-4xl">
-//         <div className="p-4 rounded-md mb-6 flex flex-row max-sm:flex-col justify-between border-b-4 border-black">
-//           <div className="mb-4 lg:mb-0">
-//             <h2 className="text-2xl font-bold text-gray-700 mb-6">
-//               About This Event
-//             </h2>
-//             <ul className="text-lg text-gray-600 space-y-2">
-//               <li>
-//                 <strong>Event Name:</strong> {event.title}
-//               </li>
-//               <li>
-//                 <strong>Start Date:</strong> {formatDate(event.startDate)}
-//               </li>
-//               <li>
-//                 <strong>End Date:</strong> {formatDate(event.endDate)}
-//               </li>
-//               <li>
-//                 <strong>Organizer:</strong> {event.organiser}
-//               </li>
-//             </ul>
-//           </div>
-//           <div className="flex flex-col items-center lg:items-end">
-//             <img
-//               src="https://i.pravatar.cc/150?img=5"
-//               alt="Speaker Michelle Erica"
-//               className="w-30 h-30 rounded-full mb-3"
-//             />
-//             <span className="text-xl font-extrabold text-gray-700 text-center">
-//               Michelle Erica
-//             </span>
-//           </div>
-//         </div>
-
-//         <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
-//           <div className="mb-2 max-sm:col-span-2">
-//             <label className="block text-sm font-medium text-gray-700">
-//               Full Name
-//             </label>
-//             <input
-//               type="text"
-//               value={inputs.fullname}
-//               onChange={(e) =>
-//                 setInputs({ ...inputs, fullname: e.target.value })
-//               }
-//               required
-//               className="mt-1  w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-//               placeholder="Enter your full name"
-//             />
-//           </div>
-
-//           <div className="mb-2 max-sm:col-span-2">
-//             <label className="block text-sm font-medium text-gray-700">
-//               Enrollment No
-//             </label>
-//             <input
-//               type="number"
-//               value={inputs.enrollment}
-//               onChange={(e) =>
-//                 setInputs({ ...inputs, enrollment: e.target.value })
-//               }
-//               required
-//               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-//               placeholder="Enter your enrollment number"
-//             />
-//           </div>
-
-//           <div className="mb-2 max-sm:col-span-2">
-//             <label className="block text-sm font-medium text-gray-700">
-//               Course
-//             </label>
-//             <select
-//               required
-//               value={inputs.course}
-//               onChange={(e) => setInputs({ ...inputs, course: e.target.value })}
-//               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-//             >
-//               <option value="">Select your course</option>
-//               <option>BCA</option>
-//               <option>BBA</option>
-//               <option>MCA</option>
-//               <option>MBA</option>
-//               {/* Add other options as needed */}
-//             </select>
-//           </div>
-
-//           <div className="mb-2 max-sm:col-span-2">
-//             <label className="block text-sm font-medium text-gray-700">
-//               Semester
-//             </label>
-//             <select
-//               value={inputs.semester}
-//               onChange={(e) =>
-//                 setInputs({ ...inputs, semester: e.target.value })
-//               }
-//               required
-//               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-//             >
-//               <option value="">Select your semester</option>
-//               <option>First</option>
-//               <option>Second</option>
-//               <option>Third</option>
-//               <option>Fourth</option>
-//               <option>Fifth</option>
-//               <option>Sixth</option>
-//             </select>
-//           </div>
-
-//           <div className="mb-2 max-sm:col-span-2">
-//             <label className="block text-sm font-medium text-gray-700">
-//               Email
-//             </label>
-//             <input
-//               type="email"
-//               value={inputs.email}
-//               onChange={(e) =>
-//                 setInputs({ ...inputs, email: e.target.value })
-//               }
-//               required
-//               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-//               placeholder="Enter your email"
-//             />
-//           </div>
-
-//           <div className="mb-2 max-sm:col-span-2">
-//             <label className="block text-sm font-medium text-gray-700">
-//               Phone No
-//             </label>
-//             <input
-//               type="tel"
-//               value={inputs.phone}
-//               onChange={(e) =>
-//                 setInputs({ ...inputs, phone: e.target.value })
-//               }
-//               required
-//               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#fcf5e8]"
-//               placeholder="Enter your phone number"
-//             />
-//           </div>
-
-//           <button
-//             type="submit"
-//             className="col-span-2 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#5C57D6] hover:bg-[#4b47c4] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5C57D6]"
-//           >
-//             Register
-//           </button>
-//         </form>
-//       </div>
-
-//       {isModalOpen && (
-//         <SuccessModal
-//           onClose={() => {
-//             setIsModalOpen(false);
-//             router.push("/events");
-//           }}
-//         />
-//       )}
-//     </div>
-//   );
-// };
-
-// export default EventRegistrationForm;
-
 "use client";
 
+import { z } from "zod";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect, FormEvent } from "react";
 import SuccessModal from "@/components/SuccessModal";
 import useRegistration from "@/hooks/useRegistration";
 import { fetchEventById } from "@/actions/data"; // Import the server action
+
+// Define your Zod schema
+const registrationSchema = z.object({
+  fullname: z.string().min(4, "Full Name should be at least 4 characters"),
+  enrollment: z
+  .string()
+  .min(8, "Enrollment number must be at least 8 characters")
+  .max(12, "Enrollment number cannot exceed 12 characters"),
+  semester: z.string().min(1, "Please select a semester"),
+  course: z.string().min(1, "Please select a course"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().regex(/^\d{10}$/, "Phone number must be 10 digits"),
+  eventId: z.string(),
+});
 
 interface EventDetailProps {
   params: {
@@ -632,6 +47,7 @@ const formatDate = (dateString: string) => {
   };
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
+
 const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -645,6 +61,7 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
     phone: "",
     eventId: params.id,
   });
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const router = useRouter();
   const { registration } = useRegistration();
@@ -653,12 +70,25 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
     e.preventDefault();
     setLoading(true);
 
+    // Validate the inputs using Zod schema
     try {
+      registrationSchema.parse(inputs);
+      setFormErrors({});
+
+      // Proceed with registration if validation passes
       const data = await registration(inputs);
       if (data) {
         setIsModalOpen(true); // Open the modal on successful registration
       }
     } catch (error) {
+      if (error instanceof z.ZodError) {
+        // Extract errors and set formErrors state
+        const errors = error.errors.reduce(
+          (acc, curr) => ({ ...acc, [curr.path[0]]: curr.message }),
+          {}
+        );
+        setFormErrors(errors);
+      }
       console.error("Registration failed:", error);
     } finally {
       setLoading(false);
@@ -668,19 +98,18 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const participantData = await fetchEventById(params.id); // Call the server action
-        
-        // Ensure participantData is properly formatted
+        const participantData = await fetchEventById(params.id);
+
         if (participantData) {
           const formattedEvent: Event = {
-            id: participantData.id as string, // Ensure this is a string
+            id: participantData.id as string,
             title: participantData.title,
-            startDate: participantData.startDate.toString(), // Convert to string if needed
-            endDate: participantData.endDate?.toString() || "", // Convert and provide default
+            startDate: participantData.startDate.toString(),
+            endDate: participantData.endDate?.toString() || "",
             image: participantData.image || "",
-            organiser: participantData.organiser, // Provide a default
-            description: participantData.description, // Provide a default
-            location: participantData.location, // Provide a default
+            organiser: participantData.organiser,
+            description: participantData.description,
+            location: participantData.location,
           };
           setEvent(formattedEvent);
         }
@@ -691,10 +120,9 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
         setLoading(false);
       }
     };
-  
+
     fetchEvent();
   }, [params.id]);
-  
 
   if (loading) {
     return (
@@ -711,7 +139,6 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
       </div>
     );
   }
-
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-[#ebcddd] to-[#c8daf1] p-6">
@@ -779,9 +206,12 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
                 setInputs({ ...inputs, fullname: e.target.value })
               }
               required
-              className="mt-1  w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#c8dde6]"
+              className="mt-1  w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-white"
               placeholder="Enter your full name"
             />
+            {formErrors.fullname && (
+              <p className="text-red-600 text-sm">{formErrors.fullname}</p>
+            )}
           </div>
 
           <div className="mb-2 max-sm:col-span-2">
@@ -795,9 +225,12 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
                 setInputs({ ...inputs, enrollment: e.target.value })
               }
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#c8dde6]"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-white"
               placeholder="Enter your enrollment number"
             />
+            {formErrors.enrollment && (
+              <p className="text-red-600 text-sm">{formErrors.enrollment}</p>
+            )}
           </div>
 
           <div className="mb-2 max-sm:col-span-2">
@@ -808,7 +241,7 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
               required
               value={inputs.course}
               onChange={(e) => setInputs({ ...inputs, course: e.target.value })}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#c8dde6]"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-white"
             >
               <option value="">Select your course</option>
               <option>BCA</option>
@@ -817,6 +250,9 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
               <option>MBA</option>
               {/* Add other options as needed */}
             </select>
+            {formErrors.course && (
+              <p className="text-red-600 text-sm">{formErrors.course}</p>
+            )}
           </div>
 
           <div className="mb-2 max-sm:col-span-2">
@@ -829,7 +265,7 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
                 setInputs({ ...inputs, semester: e.target.value })
               }
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#c8dde6]"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-white"
             >
               <option value="">Select your semester</option>
               <option>First</option>
@@ -839,6 +275,9 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
               <option>Fifth</option>
               <option>Sixth</option>
             </select>
+            {formErrors.semester && (
+              <p className="text-red-600 text-sm">{formErrors.semester}</p>
+            )}
           </div>
 
           <div className="mb-2 max-sm:col-span-2">
@@ -850,9 +289,12 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
               value={inputs.email}
               onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#c8dde6]"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-white"
               placeholder="Enter your email"
             />
+            {formErrors.email && (
+              <p className="text-red-600 text-sm">{formErrors.email}</p>
+            )}
           </div>
 
           <div className="mb-2 max-sm:col-span-2">
@@ -864,14 +306,17 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
               value={inputs.phone}
               onChange={(e) => setInputs({ ...inputs, phone: e.target.value })}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-[#c8dde6]"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black sm:text-sm bg-white"
               placeholder="Enter your phone number"
             />
+            {formErrors.phone && (
+              <p className="text-red-600 text-sm">{formErrors.phone}</p>
+            )}
           </div>
 
           <button
             type="submit"
-            className="col-span-2 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#5C57D6] hover:bg-[#4b47c4] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5C57D6]"
+            className="col-span-2 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#36b67a] hover:bg-[#36b67a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5C57D6]"
           >
             Register
           </button>
@@ -891,3 +336,4 @@ const EventRegistrationForm: React.FC<EventDetailProps> = ({ params }) => {
 };
 
 export default EventRegistrationForm;
+

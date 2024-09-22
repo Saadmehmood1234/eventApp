@@ -90,5 +90,17 @@ function handleInputErrors({
     toast.error("Please fill in all fields");
     return false;
   }
+  if(fullname.length<4){
+    toast.error("Name Should be greater than 4 letter");
+    return false;
+  }
+  if(enrollment.length<9 && enrollment.length>11){
+    toast.error("Enrollment Should be 10 digit");
+    return false;
+  }
+  if(phone.length!==10){
+    toast.error("Phone Number must be 10 digits");
+    return false;
+  }
   return true;
 }

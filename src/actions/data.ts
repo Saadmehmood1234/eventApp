@@ -3,70 +3,70 @@ import { NextResponse } from 'next/server';
 import Event from '@/models/Event';
 import connectToMongoDb from '@/utils/dbConnect';
 import EventParticipant from '@/models/Participants';
-export async function createEvent(eventData: {
-  id:string;
-  title: string;
-  members: number;
-  description: string;
-  startDate: string;
-  endDate?: string;
-  location: string;
-  organiser: string;
-  sponsers: string;
-  imageUrl?: string;
-  tags?: string[];
-}) {
-  await connectToMongoDb();
-  const {
-    title,
-    members,
-    description,
-    startDate,
-    endDate,
-    location,
-    organiser,
-    sponsers,
-    imageUrl,
-    tags,
-  } = eventData;
+// export async function createEvent(eventData: {
+//   id:string;
+//   title: string;
+//   members: number;
+//   description: string;
+//   startDate: string;
+//   endDate?: string;
+//   location: string;
+//   organiser: string;
+//   sponsers: string;
+//   imageUrl?: string;
+//   tags?: string[];
+// }) {
+//   await connectToMongoDb();
+//   const {
+//     title,
+//     members,
+//     description,
+//     startDate,
+//     endDate,
+//     location,
+//     organiser,
+//     sponsers,
+//     imageUrl,
+//     tags,
+//   } = eventData;
 
-  if (!title || !description || !startDate || !location || !organiser || !members) {
-    throw new Error("Missing required fields");
-  }
+//   if (!title || !description || !startDate || !location || !organiser || !members) {
+//     throw new Error("Missing required fields");
+//   }
 
-  try {
-    const newEvent = new Event({
-      title,
-      members,
-      description,
-      startDate,
-      endDate,
-      location,
-      organiser,
-      sponsers,
-      imageUrl,
-      tags,
-    });
+//   try {
+//     const newEvent = new Event({
+//       title,
+//       members,
+//       description,
+//       startDate,
+//       endDate,
+//       location,
+//       organiser,
+//       sponsers,
+//       imageUrl,
+//       tags,
+//     });
 
-    await newEvent.save();
+//     await newEvent.save();
 
-    return {
-      title: newEvent.title,
-      members: newEvent.members,
-      description: newEvent.description,
-      startDate: newEvent.startDate,
-      endDate: newEvent.endDate,
-      location: newEvent.location,
-      organiser: newEvent.organiser,
-      sponsers: newEvent.sponsers,
-      imageUrl: newEvent.imageUrl,
-      tags: newEvent.tags,
-    };
-  } catch (error) {
-    console.error("Error in event creation:", error);
-    throw new Error("Internal server error");
-  }
-}
+//     return {
+//       title: newEvent.title,
+//       members: newEvent.members,
+//       description: newEvent.description,
+//       startDate: newEvent.startDate,
+//       endDate: newEvent.endDate,
+//       location: newEvent.location,
+//       organiser: newEvent.organiser,
+//       sponsers: newEvent.sponsers,
+//       imageUrl: newEvent.imageUrl,
+//       tags: newEvent.tags,
+//     };
+//   } catch (error) {
+//     console.error("Error in event creation:", error);
+//     throw new Error("Internal server error");
+//   }
+// }
 
 export async function getEvents() {
   try {
@@ -173,3 +173,20 @@ export async function getParticipants() {
       throw new Error('Internal server error'); // Handle internal error
     }
   }
+
+
+  export const deleteEvent = async (id: string) => {
+    try {
+      await connectToMongoDb();
+      const deletedEvent = await Event.findByIdAndDelete(id);
+  
+      if (!deletedEvent) {
+        throw new Error('Event not found');
+      }
+  
+      return { success: true, message: 'Event deleted successfully' };
+    } catch (error:any) {
+      console.error('Error deleting event:', error);
+      throw new Error(error.message || 'Internal server error');
+    }
+  };
