@@ -141,63 +141,7 @@ export default function AdminSidebar() {
               </div>
             </Link>
 
-            {/* <div className="flex flex-col pl-4 ">
-              <h3 className="text-xl font-semibold mb-3 text-[#595959]">
-                Leave
-              </h3>
-              <Link href={"/admin/leave/request"}>
-                <div
-                  className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                    pathname === "/admin/leave/request" ? "bg-[#3d24fc2a]": ""
-                  }`}
-                >
-                  <HiOutlineClipboardCheck />
-                  <p className="text">Request</p>
-                </div>
-              </Link>
-
-              <Link href={"/admin/leave/type"}>
-                <div
-                  className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                    pathname === "/admin/leave/type" ? "bg-[#3d24fc2a]": ""
-                  }`}
-                >
-                  <HiOutlineDocumentText />
-                  <p className="text">Type</p>
-                </div>
-              </Link>
-            </div>
-
-            <div className="flex flex-col pl-4 ">
-              <h3 className="text-xl font-semibold text-[#595959]">
-                User Management
-              </h3>
-              <Link href={"/admin/user-management/role"}>
-                <div
-                  className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                    pathname === "/admin/user-management/role"
-                      ? "bg-[#3d24fc2a]"
-                      : ""
-                  }`}
-                >
-                  <HiOutlineUserGroup />
-                  <p className="text">Role</p>
-                </div>
-              </Link>
-
-              <Link href={"/admin/user-management/permission"}>
-                <div
-                  className={`flex gap-3 h-[50px] rounded-md items-center cursor-pointer hover:bg-[#eee] pl-4 text-[20px] text-[#595959] ${
-                    pathname === "/admin/user-management/permission"
-                      ? "bg-[#3d24fc2a]"
-                      : ""
-                  }`}
-                >
-                  <HiViewBoards />
-                  <p className="text">Permission</p>
-                </div>
-              </Link>
-            </div> */}
+   
           </div>
           <div className="flex items-center w-full justify-center flex-auto">
             <button

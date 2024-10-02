@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BiSolidUserDetail } from "react-icons/bi";
-import { getParticipants } from "@/actions/data";
+import { getParticipants, getEvents } from "@/actions/data";
+
 interface Event {
   id: string;
   title: string;
   startDate: string;
   endDate: string;
-  description: string;
-  imageUrl: string;
+  image: string;
+  organiser:string
 }
 
 interface Participant {
@@ -31,29 +32,26 @@ const ParticipantPage = () => {
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [expandedEvents, setExpandedEvents] = useState<Set<string>>(new Set());
 
-  // Fetch events
+  const fetchEvents = async () => {
+    try {
+      const fetchedEvents = await getEvents();
+      const formattedEvents: Event[] = fetchedEvents.map((eventData: any) => ({
+        id: eventData.id as string,
+        title: eventData.title,
+        startDate: eventData.startDate.toString(),
+        endDate: eventData.endDate?.toString() || "",
+        image: eventData.image || "",
+        organiser: eventData.organiser,
+      }));
+      setEvents(formattedEvents);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch("/api/getevent");
-        if (!response.ok) throw new Error("Network response was not ok");
-        const data = await response.json();
-        const formattedEvents = data.event.map((event: any) => ({
-          id: event._id,
-          title: event.title,
-          startDate: event.startDate,
-          endDate: event.endDate,
-          description: event.description,
-          imageUrl: event.imageUrl,
-        }));
-        setEvents(formattedEvents);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchEvents();
   }, []);
 
@@ -61,8 +59,6 @@ useEffect(() => {
   const fetchParticipant = async () => {
     try {
       const participantsData = await getParticipants();
-      
-      // Cast participantsData to Participant[]
       const formattedParticipants: Participant[] = participantsData.map((participant: any) => ({
         id: participant.id as string, // Ensure id is treated as a string
         fullname: participant.fullname,
@@ -102,7 +98,7 @@ useEffect(() => {
 
   return (
     <>
-      <div className="flex justify-between items-center pt-6 py-4 lg:px-8 px-3 bg-slate-50">
+      {/* <div className="flex justify-between items-center pt-6 py-4 lg:px-8 px-3 bg-slate-50">
         <div className="flex w-full gap-4 items-center max-md:flex-col max-md:justify-center max-md:items-center">
           <h1 className="text-3xl font-bold text-purple-600">Participants</h1>
           <div className="text-xl font-semibold text-gray-600">
@@ -110,7 +106,22 @@ useEffect(() => {
             <span className="text-purple-600">{participants.length}</span>
           </div>
         </div>
-      </div>
+      </div> */}
+
+<div className="flex justify-between items-center pt-6 py-4 lg:px-8 px-3 bg-slate-50">
+  <div className="flex w-full gap-4 items-center max-md:flex-col max-md:justify-center max-md:items-center">
+    <h1 className="text-3xl font-bold text-purple-600">Participants</h1>
+    <div className="text-xl font-semibold text-gray-600">
+      All Participants:{" "}
+      <span className="text-purple-600">
+        {participants.filter((participant) => 
+          events.some(event => event.id === participant.eventId)
+        ).length}
+      </span>
+    </div>
+  </div>
+</div>
+
 
       <div className="p-8 bg-gray-100 min-h-screen">
         {events.map((event, index) => {

@@ -6,7 +6,6 @@ export interface IEvent extends Document {
   semester: string;
   course: string;
   eventId: string;
-  //   attendees?: mongoose.Schema.Types.ObjectId[];
   phone: string;
   email: string;
   event: string;
@@ -44,7 +43,9 @@ const participantSchema: Schema<IEvent> = new Schema({
     type: String,
   },
   event: {
-    type: String,
+      // type: mongoose.Schema.Types.ObjectId,
+      // ref: 'Event', 
+      type:String,
   },
 
   createdAt: {
