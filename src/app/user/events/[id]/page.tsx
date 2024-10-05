@@ -79,13 +79,13 @@ const EventDetail: React.FC<EventDetailProps> = ({ params }) => {
     fetchEvent();
   }, [params.id]);
 
-  // if (loading) {
-  //   return (
-  //     <div className="flex justify-center items-center min-h-[300px]">
-  //       <div className="w-16 h-16 border-4 border-t-4 border-purple-600 border-solid rounded-full animate-spin"></div>
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[300px]">
+        <div className="w-16 h-16 border-4 border-t-4 border-purple-600 border-solid rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   if (error || !event) {
     return (
