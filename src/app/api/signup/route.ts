@@ -1,6 +1,5 @@
 import EventUser from "@/models/User";
-import bcrypt from "bcryptjs";
-import generateTokenAndCookie from "@/utils/generateToken";
+import bcrypt from "bcryptjs";;
 import { NextRequest, NextResponse } from "next/server";
 import connectToMongoDb from "@/utils/dbConnect";
 
@@ -41,9 +40,7 @@ export const POST = async (req: NextRequest) => {
 
     await newUser.save();
 
-    // Generate token and get it
-    const token = generateTokenAndCookie(newUser._id);
-    console.log(token);
+
     console.log(newUser);
 
     return NextResponse.json(
@@ -51,8 +48,7 @@ export const POST = async (req: NextRequest) => {
         _id: newUser._id,
         fullname: newUser.fullname,
         username: newUser.username,
-        email: newUser.email,
-        token, 
+        email: newUser.email, 
       },
       { status: 201 }
     );

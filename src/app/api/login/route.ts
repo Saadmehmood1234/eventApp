@@ -1,6 +1,5 @@
 import EventUser from "@/models/User";
 import bcrypt from "bcryptjs";
-import generateTokenAndCookie from "@/utils/generateToken";
 import { NextRequest, NextResponse } from "next/server";
 import connectToMongoDb from "@/utils/dbConnect";
 
@@ -16,15 +15,12 @@ export const POST = async (req: NextRequest) => {
         { status: 400 }
       );
     }
-// Inside your POST routes in API
-const token = generateTokenAndCookie(user._id);
 return NextResponse.json(
   {
     _id: user._id,
     fullname: user.fullname,
     username: user.username,
     email: user.email,
-    token, // Include token in the response
   },
   { status: 201 }
 );

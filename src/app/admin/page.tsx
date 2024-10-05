@@ -213,8 +213,8 @@ const Dashboard = () => {
   }
 
   return (
-    <>
-      <div className="flex justify-between pt-6 py-4 lg:px-8 px-3 bg-slate-50">
+    <div className="bg-slate-700 sm:h-[100vh]">
+      <div className="flex justify-between pt-6 py-4 lg:px-8 px-3 bg-slate-900/80">
         <h1 className="text-3xl font-bold text-purple-600 lg:ml-0 max-sm:ml-8 sm:ml-8">
           Dashboard
         </h1>
@@ -292,7 +292,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

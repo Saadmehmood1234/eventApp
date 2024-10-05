@@ -153,7 +153,9 @@ const formatDate = (dateString: string) => {
     month: "long",
     day: "numeric",
   };
-  return new Date(dateString).toLocaleDateString(undefined, options);
+  
+  // Use a fixed locale (e.g., 'en-US' or 'en-GB') to ensure the same format
+  return new Date(dateString).toLocaleDateString("en-US", options);
 };
 
 const EventsCard: React.FC<EventsCardProps> = ({ events, searchQuery }) => {
@@ -172,11 +174,11 @@ const EventsCard: React.FC<EventsCardProps> = ({ events, searchQuery }) => {
       </div>
       {filteredEvents.length > 0 ? (
         <div>
-          <div className="grid grid-cols-1   sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* <div className="flex justify-center items-center gap-10 flex-wrap max-w-6xl"> */}
             {visibleEvents.map((event) => (
               <Link key={event.id} href={`/user/events/${event.id}`}>
-                <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 cursor-pointer">
+                <div className="max-w-sm rounded overflow-hidden shadow-md shadow-gray-200 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 cursor-pointer">
                   <img
                     className="w-full h-48 object-cover"
                     src={event.image || "eventa1.jpg"}
@@ -196,7 +198,7 @@ const EventsCard: React.FC<EventsCardProps> = ({ events, searchQuery }) => {
                     </p>
                   </div>
                   <div className="px-6 pb-4">
-                    <button className="bg-green-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-green-700 transition duration-300 ease-in-out">
+                    <button className="bg-orange-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-orange-700 transition duration-300 ease-in-out">
                       Join Event
                     </button>
                   </div>

@@ -67,9 +67,9 @@ const EventsSearchClient: React.FC<{ events: any[] }> = ({ events }) => {
           value={searchQuery}
           onChange={handleSearchChange}
           placeholder="Search events..."
-          className="w-full border border-gray-300 rounded-full pl-10 pr-4 py-2 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+          className="w-full border border-gray-900 rounded-full pl-10 pr-4 py-2 text-gray-900 placeholder-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-600"
         />
-        <FaSearch className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500" />
+        <FaSearch className="absolute top-1/2 left-3 transform -translate-y-1/2 text-orange-500" />
       </div>
       <EventsCard events={filteredEvents} searchQuery={searchQuery} />
     </div>

@@ -8,10 +8,10 @@ const Home = async () => {
   const events = await getEvents(); // Fetch events on the server side
 
   return (
-    <div className="bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 flex flex-col items-center text-gray-800">
+    <div className="bg-black flex flex-col w-full h-[100vh] items-center text-gray-400">
       {/* <Header/> */}
       <main className="flex-grow flex flex-col justify-center items-center text-center mt-12 px-4">
-        <h1 className="sm:text-5xl text-4xl font-extrabold mb-8 text-gray-900">
+        <h1 className="sm:text-5xl text-4xl font-extrabold mb-8 text-gray-200">
           Discover and Participate in Exciting Events
         </h1>
         <div className="mb-12 sm:text-2xl text-xl max-w-3xl">
