@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { ClerkProvider, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import "./globals.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { dark } from "@clerk/themes";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,11 +27,11 @@ export default function RootLayout({
             </div>
           </ClerkLoading>
           <ClerkLoaded>
-     
-             <Header/>
-    
-            {children}
-            </ClerkLoaded>
+            <div className="w-full absolute top-0">
+              <Header />
+            </div>
+            <div className="absolute sm:top-[8%] top-[9%] w-full h-[90vh]">{children}</div>
+          </ClerkLoaded>
         </body>
       </html>
     </ClerkProvider>
