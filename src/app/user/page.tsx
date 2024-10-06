@@ -8,7 +8,7 @@ const Home = async () => {
   const events = await getEvents(); // Fetch events on the server side
 
   return (
-    <div className="bg-black flex flex-col w-full h-[100vh] items-center text-gray-400">
+    <div className="bg-black flex flex-col w-full sm:h-[100vh] items-center text-gray-400">
       {/* <Header/> */}
       <main className="flex-grow flex flex-col justify-center items-center text-center mt-12 px-4">
         <h1 className="sm:text-5xl text-4xl font-extrabold mb-8 text-gray-200">

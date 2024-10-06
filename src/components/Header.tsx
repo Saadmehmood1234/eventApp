@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { auth } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
 const Header = () => {
   // const { userId } = auth();
@@ -13,38 +12,31 @@ const Header = () => {
         <div className="text-2xl ml-2  font-bold text-gray-200">Eventify</div>
       </div>
       <nav className="gap-3 flex  items-center">
-        {/* {!userId ? ( */}
-          <>
-            <Link href="/sign-in" className="hover:underline text-gray-700">
+    
+            <Link href="/signin" className="hover:underline text-gray-200">
               Login
             </Link>
-            <Link href="/sign-up" className="hover:underline text-gray-700">
+            <Link href="/signup" className="hover:underline text-gray-200">
               SignUp
             </Link>
-          </>
-        {/* ) : (
-          <>
-            <Link href="/" className="hover:underline text-gray-700">
+        
+            <Link href="/" className="hover:underline text-gray-200">
               Events
             </Link> 
-            <Link href="/admin" className="hover:underline text-gray-700">
+            <Link href="/admin" className="hover:underline text-gray-200">
               Admin
             </Link> 
 
              <Link
               href="/user/history"
-              className="hover:underline text-gray-700"
+              className="hover:underline text-gray-200"
             >
               History
             </Link>
-            <Link href="/user/profile">
-              <li className="flex items-center">
-                <UserButton />
-              </li>
-            </Link>
-             <button className="hover:underline text-gray-700">Logout</button>
-          </>
-        )} */}
+          
+             <button className="hover:underline text-gray-200">Logout</button>
+          
+  
       </nav>
     </header>
   );
